@@ -1,4 +1,4 @@
-import SwiftUI
+import SwiftUIA
 
 // =====================
 // 1) 機能の列挙 (Feature enum)
