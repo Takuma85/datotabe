@@ -35,16 +35,6 @@
 			path = "だと食べ";
 			sourceTree = "<group>";
 		};
-		A9CADD2B2E6BF43D00FA6153 /* だと食べTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "だと食べTests";
-			sourceTree = "<group>";
-		};
-		A9CADD352E6BF43D00FA6153 /* だと食べUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "だと食べUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				A9CADD1D2E6BF43B00FA6153 /* だと食べ */,
-				A9CADD2B2E6BF43D00FA6153 /* だと食べTests */,
-				A9CADD352E6BF43D00FA6153 /* だと食べUITests */,
 				A9CADD1C2E6BF43B00FA6153 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,9 +118,6 @@
 			dependencies = (
 				A9CADD2A2E6BF43D00FA6153 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				A9CADD2B2E6BF43D00FA6153 /* だと食べTests */,
-			);
 			name = "だと食べTests";
 			packageProductDependencies = (
 			);
@@ -152,9 +137,6 @@
 			);
 			dependencies = (
 				A9CADD342E6BF43D00FA6153 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				A9CADD352E6BF43D00FA6153 /* だと食べUITests */,
 			);
 			name = "だと食べUITests";
 			packageProductDependencies = (
