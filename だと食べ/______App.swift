@@ -185,7 +185,7 @@ struct RestaurantPosApp: View {
                     }
                     Spacer()
                     VStack(alignment: .trailing, spacing: 2) {
-                        Text("店長: 山田 太郎")
+                        Text("店長: 木村 風葉")
                             .font(.caption2)
                             .foregroundColor(.gray)
                         Text("本日の担当: ホールA")
