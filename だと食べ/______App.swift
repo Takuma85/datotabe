@@ -360,7 +360,7 @@ struct RestaurantPosApp: View {
         case .prep_input:
             return "仕込み完了数を入力し、在庫と連動させる画面です。"
         case .stocktake_input:
-            return "棚卸しで実在庫を入力し、理論在庫との差分を確認します。"
+            return "棚卸しで実在庫を入力し、理論在庫との差分を確認します!!!!!!!!。"
         case .daily_report:
             return "売上・客数などの日報入力画面を開きます。"
         case .analytics:
