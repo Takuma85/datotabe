@@ -9,6 +9,8 @@ struct OfficeMenuView: View {
                 NavigationLink("入出金", destination: CashFlowView())
                 NavigationLink("伝票明細", destination: SlipDetailView())
                 NavigationLink("打刻管理", destination: TimecardView())
+                NavigationLink("打刻一覧（店長）", destination: TimecardManagerView())
+                NavigationLink("勤怠 月次CSV出力", destination: MonthlyAttendanceCSVView())
                 NavigationLink("原価計算", destination: CostCalcView())
             }
         }
