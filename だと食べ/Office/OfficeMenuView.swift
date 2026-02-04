@@ -10,6 +10,8 @@ struct OfficeMenuView: View {
                 NavigationLink("伝票明細", destination: SlipDetailView())
                 NavigationLink("打刻管理", destination: TimecardView())
                 NavigationLink("原価計算", destination: CostCalcView())
+                NavigationLink("レジ締め（今日）", destination: DailyClosingView())
+                NavigationLink("レジ締め一覧", destination: DailyClosingListView())
             }
         }
         .navigationTitle("事務")
