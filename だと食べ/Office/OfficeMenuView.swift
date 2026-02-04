@@ -12,6 +12,8 @@ struct OfficeMenuView: View {
                 NavigationLink("打刻一覧（店長）", destination: TimecardManagerView())
                 NavigationLink("勤怠 月次CSV出力", destination: MonthlyAttendanceCSVView())
                 NavigationLink("原価計算", destination: CostCalcView())
+                NavigationLink("レジ締め（今日）", destination: DailyClosingView())
+                NavigationLink("レジ締め一覧", destination: DailyClosingListView())
             }
         }
         .navigationTitle("事務")
