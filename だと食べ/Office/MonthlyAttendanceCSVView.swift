@@ -21,10 +21,9 @@ struct MonthlyAttendanceCSVView: View {
         VStack(spacing: 16) {
             Form {
                 Section("対象月") {
-                    DatePicker(
-                        "月を選択",
-                        selection: $targetMonth,
-                        displayedComponents: [.date]
+                    MonthYearPicker(
+                        title: "月を選択",
+                        selection: $targetMonth
                     )
                 }
 
@@ -131,6 +130,51 @@ struct MonthlyAttendanceCSVView: View {
     }
 }
 
+private struct MonthYearPicker: View {
+    let title: String
+    @Binding var selection: Date
+
+    private let calendar = Calendar.current
+
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Picker("年", selection: Binding(
+                get: { calendar.component(.year, from: selection) },
+                set: { update(year: $0, month: calendar.component(.month, from: selection)) }
+            )) {
+                ForEach(yearRange(), id: \.self) { year in
+                    Text("\(year)年").tag(year)
+                }
+            }
+            .pickerStyle(.menu)
+
+            Picker("月", selection: Binding(
+                get: { calendar.component(.month, from: selection) },
+                set: { update(year: calendar.component(.year, from: selection), month: $0) }
+            )) {
+                ForEach(1...12, id: \.self) { month in
+                    Text("\(month)月").tag(month)
+                }
+            }
+            .pickerStyle(.menu)
+        }
+    }
+
+    private func update(year: Int, month: Int) {
+        let components = DateComponents(year: year, month: month, day: 1)
+        if let date = calendar.date(from: components) {
+            selection = date
+        }
+    }
+
+    private func yearRange() -> [Int] {
+        let currentYear = calendar.component(.year, from: Date())
+        return Array((currentYear - 2)...(currentYear + 1))
+    }
+}
+
 #Preview {
     NavigationStack {
         MonthlyAttendanceCSVView()
@@ -141,4 +185,3 @@ struct MonthlyAttendanceCSVView: View {
 
 //  Created by Hirasawa Joichiro on 2026/02/04.
 //
-
