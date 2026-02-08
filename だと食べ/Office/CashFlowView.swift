@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CashFlowView: View {
+    @Environment(\.vendorRepository) private var vendorRepository
     @StateObject private var viewModel = CashFlowViewModel()
 
     @State private var isPresentingForm: Bool = false
@@ -164,8 +165,9 @@ struct CashFlowView: View {
                     .foregroundColor(tx.type == .in ? .blue : .red)
             }
 
-            if let vendor = tx.vendorName, !vendor.isEmpty {
-                Text("相手先：\(vendor)")
+            let vendorName = displayVendorName(for: tx)
+            if !vendorName.isEmpty {
+                Text("相手先：\(vendorName)")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -196,6 +198,14 @@ struct CashFlowView: View {
         return "¥" + (Self.numberFormatter.string(from: number) ?? "\(value)")
     }
 
+    private func displayVendorName(for tx: CashTransaction) -> String {
+        if let vendorId = tx.vendorId,
+           let vendor = vendorRepository.findById(vendorId) {
+            return vendor.name
+        }
+        return ""
+    }
+
     private static let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.locale = Locale(identifier: "ja_JP")
@@ -220,6 +230,7 @@ struct CashFlowView: View {
 
 private struct CashTransactionFormView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.vendorRepository) private var vendorRepository
 
     @State private var transaction: CashTransaction
     @State private var amountText: String
@@ -290,10 +301,15 @@ private struct CashTransactionFormView: View {
                 TextField("金額", text: $amountText)
                     .keyboardType(.numberPad)
 
-                TextField("相手先（任意）", text: Binding(
-                    get: { transaction.vendorName ?? "" },
-                    set: { transaction.vendorName = $0.isEmpty ? nil : $0 }
-                ))
+                Picker("相手先", selection: Binding(
+                    get: { transaction.vendorId ?? "" },
+                    set: { transaction.vendorId = $0.isEmpty ? nil : $0 }
+                )) {
+                    Text("未選択").tag("")
+                    ForEach(activeVendors(), id: \.id) { v in
+                        Text(v.name).tag(v.id)
+                    }
+                }
 
                 TextField("メモ（任意）", text: $transaction.description)
 
@@ -339,6 +355,15 @@ private struct CashTransactionFormView: View {
 
         onSave(transaction)
         dismiss()
+    }
+
+    private func activeVendors() -> [Vendor] {
+        vendorRepository.fetchVendors(
+            storeId: "store_1",
+            search: nil,
+            category: nil,
+            isActive: true
+        )
     }
 }
 
