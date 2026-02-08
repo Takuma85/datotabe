@@ -55,7 +55,7 @@ struct CashTransaction: Identifiable, Hashable, Codable {
 
     var category: CashTransactionCategory?
     var expenseId: String?
-    var vendorName: String?
+    var vendorId: String?
 
     var description: String
 
@@ -81,7 +81,7 @@ extension CashTransaction {
                 amount: 30000,
                 category: .changePrep,
                 expenseId: nil,
-                vendorName: nil,
+                vendorId: nil,
                 description: "釣銭準備金投入",
                 createdByUserId: "manager_1",
                 updatedByUserId: "manager_1",
@@ -97,7 +97,7 @@ extension CashTransaction {
                 amount: 1200,
                 category: .purchase,
                 expenseId: nil,
-                vendorName: "コンビニ",
+                vendorId: "vendor_1",
                 description: "氷を購入",
                 createdByUserId: "staff_1",
                 updatedByUserId: "staff_1",
@@ -113,7 +113,7 @@ extension CashTransaction {
                 amount: 5000,
                 category: .depositToBank,
                 expenseId: nil,
-                vendorName: "○○銀行",
+                vendorId: nil,
                 description: "売上入金",
                 createdByUserId: "manager_1",
                 updatedByUserId: "manager_1",

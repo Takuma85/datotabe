@@ -92,7 +92,7 @@ final class CashFlowViewModel: ObservableObject {
             amount: 0,
             category: nil,
             expenseId: nil,
-            vendorName: nil,
+            vendorId: nil,
             description: "",
             createdByUserId: "current_user",
             updatedByUserId: "current_user",
