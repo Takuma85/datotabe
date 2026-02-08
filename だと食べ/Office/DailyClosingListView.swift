@@ -46,6 +46,25 @@ struct DailyClosingListView: View {
                                 .font(.caption2)
                                 .bold()
                         }
+                        
+                        // ステータス + 問題ありアイコン
+                        HStack {
+                            Text("ステータス")
+                                .font(.caption2)
+                            Spacer()
+                            Text(closing.status.label)
+                                .font(.caption2)
+                                .foregroundColor(
+                                    closing.status == .confirmed ? .green :
+                                        closing.status == .draft ? .orange :
+                                            .blue
+                                )
+                            if closing.hasIssue {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .font(.caption2)
+                                    .foregroundColor(.red)
+                            }
+                        }
                     }
                 }
             }
