@@ -26,6 +26,7 @@ enum TimeRecordStatus: String, Codable, CaseIterable, Identifiable {
 struct TimeRecord: Identifiable, Codable {
     let id: UUID
     let employeeId: Int
+    let storeId: String
     let date: Date // 日単位（0:00 切り捨て）
 
     var clockInAt: Date?
@@ -36,6 +37,57 @@ struct TimeRecord: Identifiable, Codable {
 
     // デフォルト値付きなので、古いデータには自動で .draft が入る
     var status: TimeRecordStatus = .draft
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case employeeId
+        case storeId
+        case date
+        case clockInAt
+        case clockOutAt
+        case breakMinutes
+        case isOnBreak
+        case lastBreakStart
+        case status
+    }
+
+    init(
+        id: UUID,
+        employeeId: Int,
+        storeId: String = "store_1",
+        date: Date,
+        clockInAt: Date?,
+        clockOutAt: Date?,
+        breakMinutes: Int,
+        isOnBreak: Bool,
+        lastBreakStart: Date?,
+        status: TimeRecordStatus = .draft
+    ) {
+        self.id = id
+        self.employeeId = employeeId
+        self.storeId = storeId
+        self.date = date
+        self.clockInAt = clockInAt
+        self.clockOutAt = clockOutAt
+        self.breakMinutes = breakMinutes
+        self.isOnBreak = isOnBreak
+        self.lastBreakStart = lastBreakStart
+        self.status = status
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        employeeId = try container.decode(Int.self, forKey: .employeeId)
+        storeId = try container.decodeIfPresent(String.self, forKey: .storeId) ?? "store_1"
+        date = try container.decode(Date.self, forKey: .date)
+        clockInAt = try container.decodeIfPresent(Date.self, forKey: .clockInAt)
+        clockOutAt = try container.decodeIfPresent(Date.self, forKey: .clockOutAt)
+        breakMinutes = try container.decode(Int.self, forKey: .breakMinutes)
+        isOnBreak = try container.decode(Bool.self, forKey: .isOnBreak)
+        lastBreakStart = try container.decodeIfPresent(Date.self, forKey: .lastBreakStart)
+        status = try container.decodeIfPresent(TimeRecordStatus.self, forKey: .status) ?? .draft
+    }
 }
 
 // MARK: - リポジトリプロトコル
@@ -100,6 +152,7 @@ final class UserDefaultsTimeRecordRepository: TimeRecordRepository {
             return TimeRecord(
                 id: UUID(),
                 employeeId: employeeId,
+                storeId: "store_1",
                 date: day,
                 clockInAt: legacy.clockInAt,
                 clockOutAt: legacy.clockOutAt,
@@ -157,6 +210,7 @@ final class UserDefaultsTimeRecordRepository: TimeRecordRepository {
                 let record = TimeRecord(
                     id: UUID(),
                     employeeId: empId,
+                    storeId: "store_1",
                     date: day,
                     clockInAt: legacy.clockInAt,
                     clockOutAt: legacy.clockOutAt,
