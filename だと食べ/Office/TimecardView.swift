@@ -183,7 +183,7 @@ struct TimecardView: View {
         .onAppear {
             loadTodayRecord()
         }
-        .onChange(of: employeeStore.currentEmployeeId) { _ in
+        .onChange(of: employeeStore.currentEmployeeId) { _, _ in
             loadTodayRecord()
         }
         .alert("エラー", isPresented: $showAlert) {
@@ -376,4 +376,3 @@ struct TimecardView: View {
             .environment(\.timeRecordRepository, UserDefaultsTimeRecordRepository())
     }
 }
-

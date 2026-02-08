@@ -62,7 +62,7 @@ struct DailyClosingView: View {
             Section(header: Text("実際のレジ内現金")) {
                 TextField("レジ内の現金残高を入力", text: $actualCashText)
                     .keyboardType(.numberPad)
-                    .onChange(of: viewModel.closing.date) { newDate in
+                    .onChange(of: viewModel.closing.date) { _, _ in
                                 // 日付が変わったら、その日付のデータをモックから再読み込み
                                 viewModel.recalculateFromServerMock()
                             }
