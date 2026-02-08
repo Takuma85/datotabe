@@ -11,31 +11,54 @@ protocol DailyClosingRepositoryProtocol {
     func saveClosing(storeId: String, closing: DailyClosing)
 }
 
-/// とりあえず UI 用のダミー実装（後で Firebase 版に差し替える）
 final class MockDailyClosingRepository: DailyClosingRepositoryProtocol {
 
     func loadClosing(storeId: String, date: Date) -> DailyClosing? {
-        // 実際は storeId + date をキーに読み込む想定
-        // 今は「その日用のダミーデータ」を適当に返すだけ
-        let day = Calendar.current.component(.day, from: date)
+        let calendar = Calendar.current
+
+        // 日によってちょっと数字が変わるようにする
+        let day = calendar.component(.day, from: date)
+
+        let previous = 30000 + day * 100      // 前日繰越
+        let cashSales = 80000 + day * 500     // 現金売上
+        let cashIn = 10_000                   // 入金
+        let cashOut = 5_000                   // 出金
+
+        // 今日か過去かでステータスと実残高を変える
+        let today = calendar.startOfDay(for: Date())
+        let target = calendar.startOfDay(for: date)
+
+        var status: ClosingStatus = .draft
+        var actual: Int = 0
+
+        if target < today {
+            // 過去日は「締め済み」で、差額0になるように実残高 = 理論残高
+            let expected = previous + cashSales + cashIn - cashOut
+            status = .confirmed
+            actual = expected
+        } else {
+            // 今日以降（基本は今日）はドラフト・実残高 0 のまま
+            status = .draft
+            actual = 0
+        }
 
         return DailyClosing(
             storeName: "だと食べ 本店",
             date: date,
-            previousCashBalance: 30000 + day * 100,  // 日付でちょっと変わるように
-            cashSales: 80000 + day * 500,
-            cashInTotal: 10000,
-            cashOutTotal: 5000,
-            actualCashBalance: 0,
+            previousCashBalance: previous,
+            cashSales: cashSales,
+            cashInTotal: cashIn,
+            cashOutTotal: cashOut,
+            actualCashBalance: actual,
             note: "",
-            status: .draft
+            status: status
         )
     }
 
     func saveClosing(storeId: String, closing: DailyClosing) {
         // 今は何もしないダミー実装
-        // 後で Firebase 保存処理に差し替え予定
         print("Mock saveClosing called for storeId=\(storeId), date=\(closing.date)")
     }
 }
+
 
