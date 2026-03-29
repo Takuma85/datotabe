@@ -97,6 +97,8 @@ struct SeatDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State var seat: Seat
+    @State private var showBilling = false
+    @State private var showOrderView = false
     let onSave: (Seat) -> Void
 
     var body: some View {
@@ -128,8 +130,28 @@ struct SeatDetailView: View {
                     TextField("メモ", text: $seat.memo, axis: .vertical)
                         .lineLimit(3, reservesSpace: true)
                 }
+
+                if seat.hasGuests {
+                    Section("営業操作") {
+                        Button("注文") {
+                            showOrderView = true
+                        }
+
+                        Button("会計") {
+                            showBilling = true
+                        }
+                    }
+                }
             }
             .navigationTitle("席 \(seat.id)")
+            .onChange(of: seat.occupants) { _, occupants in
+                if occupants == 0 {
+                    showOrderView = false
+                    showBilling = false
+                } else if seat.status == .empty {
+                    seat.status = .inUse
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("キャンセル") { dismiss() }
@@ -140,6 +162,31 @@ struct SeatDetailView: View {
                         dismiss()
                     }
                 }
+            }
+            .sheet(isPresented: $showOrderView) {
+                SeatOrderView(seat: seat)
+            }
+            .sheet(isPresented: $showBilling) {
+                BillingView(
+                    viewModel: BillingViewModel(
+                        tableId: String(seat.id),
+                        people: seat.occupants,
+                        items: billingItemsForSeat(seat)
+                    ),
+                    onClose: {
+                        showBilling = false
+                    },
+                    onCompleted: { _ in
+                        clearSeatOrderHistory(seatId: String(seat.id))
+                        seat.status = .empty
+                        seat.isNomihoudai = false
+                        seat.occupants = 0
+                        seat.memo = ""
+                        onSave(seat)
+                        showBilling = false
+                        dismiss()
+                    }
+                )
             }
         }
     }
