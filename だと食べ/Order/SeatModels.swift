@@ -42,6 +42,9 @@ struct Seat: Identifiable {
     var memo: String
 
     // ここに必要に応じて startTime, limitMinutes などを後で追加していく
-}
 
+    var hasGuests: Bool {
+        occupants > 0
+    }
+}
 
