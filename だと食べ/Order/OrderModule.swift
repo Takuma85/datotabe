@@ -175,10 +175,11 @@ func billingItemsForSeat(_ seat: Seat) -> [OrderItem] {
 
     for record in history {
         for line in record.lines {
-            let name = if let option = line.option, !option.isEmpty {
-                "\(line.name) (\(option))"
+            let name: String
+            if let option = line.option, !option.isEmpty {
+                name = "\(line.name) (\(option))"
             } else {
-                line.name
+                name = line.name
             }
 
             let key = "\(line.itemId)#\(line.option ?? "")#\(line.price)"
@@ -719,4 +720,3 @@ private struct OrderFilterChipStyle: ButtonStyle {
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }
-
