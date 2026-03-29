@@ -73,7 +73,8 @@ struct Expense: Identifiable, Hashable, Codable {
     var category: ExpenseCategory
     var subCategory: String?
 
-    var vendorName: String?
+    var vendorId: String?
+    var vendorNameRaw: String?
 
     var paymentMethod: ExpensePaymentMethod
     var employeeId: Int?
@@ -112,7 +113,8 @@ extension Expense {
                 currency: "JPY",
                 category: .food,
                 subCategory: "野菜",
-                vendorName: "八百屋",
+                vendorId: "vendor_1",
+                vendorNameRaw: nil,
                 paymentMethod: .cash,
                 employeeId: nil,
                 isReimbursed: false,
@@ -137,7 +139,8 @@ extension Expense {
                 currency: "JPY",
                 category: .consumable,
                 subCategory: nil,
-                vendorName: "コンビニ",
+                vendorId: nil,
+                vendorNameRaw: "コンビニ",
                 paymentMethod: .employeeAdvance,
                 employeeId: 1,
                 isReimbursed: false,

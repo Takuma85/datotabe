@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct ExpenseView: View {
+    @Environment(\.vendorRepository) private var vendorRepository
     @EnvironmentObject private var employeeStore: EmployeeStore
     @StateObject private var viewModel: ExpenseViewModel
     @StateObject private var reimbursementViewModel: ExpenseReimbursementViewModel
 
     @State private var isPresentingForm: Bool = false
     @State private var editingExpense: Expense?
+    private let storeId: String = "store_1"
 
     init() {
         let repository = MockExpenseRepository()
@@ -43,6 +45,7 @@ struct ExpenseView: View {
                         expense: expense,
                         employees: employeeStore.employees,
                         defaultEmployeeId: employeeStore.currentEmployeeId,
+                        storeId: storeId,
                         onSave: { updated in
                             viewModel.save(expense: updated)
                             reimbursementViewModel.showReimbursed = false
@@ -271,8 +274,9 @@ struct ExpenseView: View {
             }
             .foregroundColor(.secondary)
 
-            if let vendor = expense.vendorName, !vendor.isEmpty {
-                Text("取引先：\(vendor)")
+            let vendorName = displayVendorName(for: expense)
+            if !vendorName.isEmpty {
+                Text("取引先：\(vendorName)")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -294,6 +298,14 @@ struct ExpenseView: View {
         return "¥" + (Self.numberFormatter.string(from: number) ?? "\(value)")
     }
 
+    private func displayVendorName(for expense: Expense) -> String {
+        if let vendorId = expense.vendorId,
+           let vendor = vendorRepository.findById(vendorId) {
+            return vendor.name
+        }
+        return expense.vendorNameRaw ?? ""
+    }
+
     private static let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.locale = Locale(identifier: "ja_JP")
@@ -311,15 +323,19 @@ struct ExpenseView: View {
 
 private struct ExpenseFormView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.vendorRepository) private var vendorRepository
 
     @State private var expense: Expense
     @State private var amountText: String
     @State private var taxText: String
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var vendorInputMode: VendorInputMode
+    @State private var vendorSearchText: String = ""
 
     let employees: [Employee]
     let defaultEmployeeId: Int
+    let storeId: String
     let onSave: (Expense) -> Void
     let onCancel: () -> Void
 
@@ -327,14 +343,17 @@ private struct ExpenseFormView: View {
         expense: Expense,
         employees: [Employee],
         defaultEmployeeId: Int,
+        storeId: String,
         onSave: @escaping (Expense) -> Void,
         onCancel: @escaping () -> Void
     ) {
         _expense = State(initialValue: expense)
         _amountText = State(initialValue: expense.amount == 0 ? "" : String(expense.amount))
         _taxText = State(initialValue: expense.taxAmount == 0 ? "" : String(expense.taxAmount))
+        _vendorInputMode = State(initialValue: expense.vendorId == nil ? .manual : .select)
         self.employees = employees
         self.defaultEmployeeId = defaultEmployeeId
+        self.storeId = storeId
         self.onSave = onSave
         self.onCancel = onCancel
     }
@@ -383,10 +402,41 @@ private struct ExpenseFormView: View {
             }
 
             Section(header: Text("取引先・メモ")) {
-                TextField("取引先（任意）", text: Binding(
-                    get: { expense.vendorName ?? "" },
-                    set: { expense.vendorName = $0.isEmpty ? nil : $0 }
-                ))
+                Picker("入力方法", selection: $vendorInputMode) {
+                    Text("選択").tag(VendorInputMode.select)
+                    Text("手入力").tag(VendorInputMode.manual)
+                }
+                .pickerStyle(.segmented)
+
+                if vendorInputMode == .select {
+                    TextField("検索", text: $vendorSearchText)
+                        .textFieldStyle(.roundedBorder)
+
+                    Picker("取引先", selection: Binding(
+                        get: { expense.vendorId ?? "" },
+                        set: { newValue in
+                            expense.vendorId = newValue.isEmpty ? nil : newValue
+                            if expense.vendorId != nil {
+                                expense.vendorNameRaw = nil
+                            }
+                        }
+                    )) {
+                        Text("未選択").tag("")
+                        ForEach(activeVendors(), id: \.id) { v in
+                            Text(v.name).tag(v.id)
+                        }
+                    }
+                } else {
+                    TextField("取引先（手入力）", text: Binding(
+                        get: { expense.vendorNameRaw ?? "" },
+                        set: { newValue in
+                            expense.vendorNameRaw = newValue.isEmpty ? nil : newValue
+                            if expense.vendorNameRaw != nil {
+                                expense.vendorId = nil
+                            }
+                        }
+                    ))
+                }
 
                 TextField("メモ（任意）", text: $expense.memo)
             }
@@ -450,6 +500,20 @@ private struct ExpenseFormView: View {
         onSave(expense)
         dismiss()
     }
+
+    private func activeVendors() -> [Vendor] {
+        vendorRepository.fetchVendors(
+            storeId: storeId,
+            search: vendorSearchText,
+            category: nil,
+            isActive: true
+        )
+    }
+}
+
+private enum VendorInputMode: String {
+    case select
+    case manual
 }
 
 #Preview {
