@@ -56,7 +56,7 @@ final class AnalyticsViewModel: ObservableObject {
         do {
             dailyRows = try await repository.fetchDaily(storeId: storeId, from: fromDate, to: toDate)
         } catch {
-            errorMessage = "日次データの取得に失敗しました: \(error)"
+            errorMessage = "日次データの取得に失敗しました。: \(error)"
         }
     }
 }
