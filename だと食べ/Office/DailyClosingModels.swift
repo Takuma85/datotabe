@@ -1,5 +1,43 @@
 import Foundation
 
+/// 現金カウントで扱う券種
+enum CashDenomination: Int, CaseIterable, Hashable, Identifiable {
+    case bill10000 = 10_000
+    case bill5000 = 5_000
+    case bill2000 = 2_000
+    case bill1000 = 1_000
+    case coin500 = 500
+    case coin100 = 100
+    case coin50 = 50
+    case coin10 = 10
+    case coin5 = 5
+    case coin1 = 1
+
+    var id: Int { rawValue }
+
+    var label: String {
+        "¥\(rawValue)"
+    }
+
+    var categoryLabel: String {
+        switch self {
+        case .bill10000, .bill5000, .bill2000, .bill1000:
+            return "お札"
+        default:
+            return "硬貨"
+        }
+    }
+
+    var isBill: Bool {
+        switch self {
+        case .bill10000, .bill5000, .bill2000, .bill1000:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 /// レジ締めのステータス
 enum ClosingStatus: String, CaseIterable, Identifiable {
     case draft       // 自動計算だけ終わった状態
@@ -34,6 +72,7 @@ struct DailyClosing: Identifiable {
 
     // 実際のレジ内現金（カウント結果）
     var actualCashBalance: Int        // 実残高
+    var countedCashUnits: [CashDenomination: Int] = [:] // 券種ごとの枚数
 
     // メモ等
     var note: String
@@ -56,4 +95,3 @@ struct DailyClosing: Identifiable {
         abs(difference) >= 1000
     }
 }
-

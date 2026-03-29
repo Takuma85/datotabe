@@ -56,6 +56,23 @@ final class DailyClosingViewModel: ObservableObject {
             closing.actualCashBalance = value
         }
 
+    /// 券種ごとの枚数入力を更新し、実残高を再計算する
+    func updateCount(for denomination: CashDenomination, from text: String) {
+        let value = max(0, Int(text) ?? 0)
+        closing.countedCashUnits[denomination] = value
+        closing.actualCashBalance = calculatedActualCashFromCounts()
+    }
+
+    /// 指定券種の現在枚数（未入力なら0）
+    func count(for denomination: CashDenomination) -> Int {
+        closing.countedCashUnits[denomination] ?? 0
+    }
+
+    /// 指定券種の金額小計
+    func subtotal(for denomination: CashDenomination) -> Int {
+        denomination.rawValue * count(for: denomination)
+    }
+
     /// 最新状態を再計算する（今はダミーでメッセージだけ）
     /// 後から Firebase / API 呼び出しに差し替え予定
     func recalculateFromServerMock() {
@@ -64,10 +81,12 @@ final class DailyClosingViewModel: ObservableObject {
                 // 実残高とメモは維持したいので、必要な項目だけ上書きしてもOK
                 let actual = closing.actualCashBalance
                 let note = closing.note
+                let counts = closing.countedCashUnits
 
                 closing = loaded
                 closing.actualCashBalance = actual
                 closing.note = note
+                closing.countedCashUnits = counts
             }
             toastMessage = "（ダミー）売上・入出金から理論残高を再計算しました。"
         }
@@ -95,5 +114,11 @@ final class DailyClosingViewModel: ObservableObject {
     /// ステータスの表示文字列
     var statusText: String {
         closing.status.label
+    }
+
+    private func calculatedActualCashFromCounts() -> Int {
+        CashDenomination.allCases.reduce(0) { partialResult, denomination in
+            partialResult + subtotal(for: denomination)
+        }
     }
 }
