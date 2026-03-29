@@ -274,7 +274,10 @@ final class MockAnalyticsRepository: AnalyticsRepository {
     private func sumByVendor(expenses: [Expense]) -> [String: Int] {
         var dict: [String: Int] = [:]
         for e in expenses {
-            let name = (e.vendorName?.isEmpty == false) ? e.vendorName! : "その他（未紐付け）"
+            let rawName = e.vendorNameRaw?.trimmingCharacters(in: .whitespacesAndNewlines)
+            let name = (rawName?.isEmpty == false)
+                ? rawName!
+                : ((e.vendorId?.isEmpty == false) ? "取引先ID: \(e.vendorId!)" : "その他（未紐付け）")
             dict[name, default: 0] += e.amount
         }
         return dict
