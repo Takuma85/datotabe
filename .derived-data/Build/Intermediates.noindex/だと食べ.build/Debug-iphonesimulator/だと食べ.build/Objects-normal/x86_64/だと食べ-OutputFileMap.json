@@ -1,0 +1,598 @@
+{
+  "" : {
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/だと食べ-master.dia",
+    "emit-module-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/だと食べ-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/だと食べ-master-emit-module.dia",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/だと食べ-master.swiftdeps"
+  },
+  "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Inventory/DeliveryInputView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DeliveryInputView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Inventory/InventoryMenuView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/InventoryMenuView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Inventory/LossInputView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/LossInputView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Inventory/OrderAlertView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderAlertView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Inventory/PrepInputView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/PrepInputView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Inventory/StocktakeInputView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/StocktakeInputView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/AnalyticsModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/AnalyticsRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/AnalyticsView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/AnalyticsViewModel.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/AnalyticsViewModel~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CashClosingMenuView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashClosingMenuView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CashFlowView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CashFlowViewModel.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashFlowViewModel~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CashTransactionModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CashTransactionRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CashTransactionRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CostCalcView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CostCalcViewModel.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCalcViewModel~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/CostCategorySettingsRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/CostCategorySettingsRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyClosingListView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingListView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyClosingModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyClosingRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyClosingView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyClosingViewModel.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyClosingViewModel~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyReportModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyReportRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyReportView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/DailyReportViewModel.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DailyReportViewModel~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/EmployeeStore.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/EmployeeStore~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/ExpenseModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/ExpenseReimbursementView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseReimbursementView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/ExpenseRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/ExpenseView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/ExpenseViewModel.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/ExpenseViewModel~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/MonthlyAttendanceCSVView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyAttendanceCSVView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/MonthlyReportCSVViews.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportCSVViews~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/MonthlyReportModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/MonthlyReportRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MonthlyReportRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/OfficeMenuView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OfficeMenuView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/SalesModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/SalesPerformanceTabView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesPerformanceTabView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/SalesRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SalesRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/SlipDetailView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SlipDetailView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/TimeRecordDetailView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordDetailView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/TimeRecordRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimeRecordRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/TimecardManagerView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardManagerView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/TimecardView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/TimecardView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/VendorModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/VendorRepository.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorRepository~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Office/VendorViews.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/VendorViews~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Order/BillingModule.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/BillingModule~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Order/OrderModule.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/OrderModule~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Order/SeatManagementView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatManagementView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Order/SeatModels.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatModels~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Root/DadtoTabeApp.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/DadtoTabeApp~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Root/MainTabView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MainTabView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Settings/MenuSettingView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/MenuSettingView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Settings/SeatSettingView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SeatSettingView~partial.swiftmodule"
+  },
+  "/Users/hirasawa4323/Documents/書類 -重要/datotabe/だと食べ/Settings/SettingsMenuView.swift" : {
+    "const-values" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView.swiftconstvalues",
+    "dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView.d",
+    "diagnostics" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView.dia",
+    "index-unit-output-path" : "/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView.o",
+    "llvm-bc" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView.bc",
+    "object" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView.o",
+    "swift-dependencies" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView.swiftdeps",
+    "swiftmodule" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/だと食べ.build/Debug-iphonesimulator/だと食べ.build/Objects-normal/x86_64/SettingsMenuView~partial.swiftmodule"
+  }
+}
