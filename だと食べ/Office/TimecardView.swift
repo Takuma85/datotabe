@@ -357,6 +357,7 @@ struct TimecardView: View {
         let record = TimeRecord(
             id: id,
             employeeId: emp.id,
+            storeId: "store_1",
             date: today,
             clockInAt: clockInAt,
             clockOutAt: clockOutAt,

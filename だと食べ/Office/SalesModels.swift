@@ -22,6 +22,8 @@ struct SalesReceipt: Identifiable, Hashable, Codable {
     let storeId: String
     let businessDate: Date
 
+    var peopleCount: Int
+
     var totalInclTax: Int
     var subtotalExclTax: Int
     var taxTotal: Int
@@ -51,6 +53,7 @@ extension SalesReceipt {
                 id: UUID().uuidString,
                 storeId: storeId,
                 businessDate: today,
+                peopleCount: 4,
                 totalInclTax: 120_000,
                 subtotalExclTax: 109_091,
                 taxTotal: 10_909,
@@ -60,6 +63,7 @@ extension SalesReceipt {
                 id: UUID().uuidString,
                 storeId: storeId,
                 businessDate: yesterday,
+                peopleCount: 3,
                 totalInclTax: 80_000,
                 subtotalExclTax: 72_727,
                 taxTotal: 7_273,
@@ -69,6 +73,7 @@ extension SalesReceipt {
                 id: UUID().uuidString,
                 storeId: storeId,
                 businessDate: yesterday,
+                peopleCount: 0,
                 totalInclTax: -5_000,
                 subtotalExclTax: -4_545,
                 taxTotal: -455,

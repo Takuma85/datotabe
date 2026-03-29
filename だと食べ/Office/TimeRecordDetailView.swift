@@ -144,6 +144,7 @@ struct TimeRecordDetailView: View {
             record: TimeRecord(
                 id: UUID(),
                 employeeId: 1,
+                storeId: "store_1",
                 date: Calendar.current.startOfDay(for: Date()),
                 clockInAt: Date(),
                 clockOutAt: Calendar.current.date(byAdding: .hour, value: 8, to: Date()),
@@ -160,4 +161,3 @@ struct TimeRecordDetailView: View {
 
 //  Created by Hirasawa Joichiro on 2026/02/04.
 //
-
