@@ -2,10 +2,21 @@ import SwiftUI
 
 struct CashFlowView: View {
     @Environment(\.vendorRepository) private var vendorRepository
-    @StateObject private var viewModel = CashFlowViewModel()
+    @StateObject private var viewModel: CashFlowViewModel
 
     @State private var isPresentingForm: Bool = false
     @State private var editingTransaction: CashTransaction?
+
+    init() {
+        let cashRepository = MockCashTransactionRepository()
+        let expenseRepository = MockExpenseRepository()
+        _viewModel = StateObject(
+            wrappedValue: CashFlowViewModel(
+                repository: cashRepository,
+                expenseRepository: expenseRepository
+            )
+        )
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -33,6 +44,7 @@ struct CashFlowView: View {
                 NavigationView {
                     CashTransactionFormView(
                         transaction: tx,
+                        cashExpenses: viewModel.cashExpenseCandidates(currentTransactionId: tx.id),
                         onSave: { updated in
                             viewModel.save(transaction: updated)
                             isPresentingForm = false
@@ -115,6 +127,9 @@ struct CashFlowView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("入金合計：\(formatCurrency(viewModel.cashInTotal))")
                 Text("出金合計：\(formatCurrency(viewModel.cashOutTotal))")
+                Text("経費連携件数：\(viewModel.linkedExpenseCount)件")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
             Spacer()
             Text("差額：\(formatCurrency(viewModel.difference))")
@@ -170,6 +185,17 @@ struct CashFlowView: View {
                 Text("相手先：\(vendorName)")
                     .font(.caption)
                     .foregroundColor(.secondary)
+            }
+            if let linkedExpense = viewModel.linkedExpense(for: tx) {
+                Text(
+                    "経費連携：\(linkedExpense.category.label) \(formatCurrency(linkedExpense.amount))"
+                )
+                .font(.caption)
+                .foregroundColor(.blue)
+            } else if let expenseId = tx.expenseId {
+                Text("経費連携ID：\(expenseId)")
+                    .font(.caption)
+                    .foregroundColor(.orange)
             }
             if !tx.description.isEmpty {
                 Text("メモ：\(tx.description)")
@@ -238,17 +264,20 @@ private struct CashTransactionFormView: View {
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
 
+    let cashExpenses: [Expense]
     let onSave: (CashTransaction) -> Void
     let onCancel: () -> Void
 
     init(
         transaction: CashTransaction,
+        cashExpenses: [Expense],
         onSave: @escaping (CashTransaction) -> Void,
         onCancel: @escaping () -> Void
     ) {
         _transaction = State(initialValue: transaction)
         _amountText = State(initialValue: transaction.amount == 0 ? "" : String(transaction.amount))
         _includeTime = State(initialValue: transaction.time != nil)
+        self.cashExpenses = cashExpenses
         self.onSave = onSave
         self.onCancel = onCancel
     }
@@ -313,10 +342,30 @@ private struct CashTransactionFormView: View {
 
                 TextField("メモ（任意）", text: $transaction.description)
 
-                TextField("経費ID（任意）", text: Binding(
+                Picker("連携経費", selection: Binding(
                     get: { transaction.expenseId ?? "" },
-                    set: { transaction.expenseId = $0.isEmpty ? nil : $0 }
-                ))
+                    set: { newValue in
+                        transaction.expenseId = newValue.isEmpty ? nil : newValue
+                        guard let expense = cashExpenses.first(where: { $0.id == transaction.expenseId }) else {
+                            return
+                        }
+                        transaction.type = .out
+                        if transaction.category == nil {
+                            transaction.category = .purchase
+                        }
+                        if transaction.vendorId == nil {
+                            transaction.vendorId = expense.vendorId
+                        }
+                        if amountText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            amountText = String(expense.amount)
+                        }
+                    }
+                )) {
+                    Text("未連携").tag("")
+                    ForEach(cashExpenses) { expense in
+                        Text(expensePickerLabel(expense)).tag(expense.id)
+                    }
+                }
             }
         }
         .navigationTitle("入出金入力")
@@ -357,6 +406,12 @@ private struct CashTransactionFormView: View {
         dismiss()
     }
 
+    private func expensePickerLabel(_ expense: Expense) -> String {
+        let dateText = Self.dateFormatter.string(from: expense.date)
+        let amountText = Self.numberFormatter.string(from: NSNumber(value: expense.amount)) ?? "\(expense.amount)"
+        return "\(dateText) \(expense.category.label) ¥\(amountText)"
+    }
+
     private func activeVendors() -> [Vendor] {
         vendorRepository.fetchVendors(
             storeId: "store_1",
@@ -365,6 +420,19 @@ private struct CashTransactionFormView: View {
             isActive: true
         )
     }
+
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateFormat = "M/d"
+        return formatter
+    }()
+
+    private static let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
 }
 
 #Preview {

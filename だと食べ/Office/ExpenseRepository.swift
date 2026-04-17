@@ -18,10 +18,12 @@ protocol ExpenseRepository {
 }
 
 final class MockExpenseRepository: ExpenseRepository {
-    private var items: [Expense]
+    private static var sharedItems: [Expense] = Expense.sample()
 
-    init(seed: [Expense] = Expense.sample()) {
-        self.items = seed
+    init(seed: [Expense]? = nil) {
+        if let seed {
+            Self.sharedItems = seed
+        }
     }
 
     func fetchExpenses(
@@ -38,7 +40,7 @@ final class MockExpenseRepository: ExpenseRepository {
         let fromDay = cal.startOfDay(for: from)
         let toDay = cal.startOfDay(for: to)
 
-        return items
+        return Self.sharedItems
             .filter { $0.storeId == storeId }
             .filter { expense in
                 let d = cal.startOfDay(for: expense.date)
@@ -78,18 +80,18 @@ final class MockExpenseRepository: ExpenseRepository {
     }
 
     func save(expense: Expense) {
-        if let index = items.firstIndex(where: { $0.id == expense.id }) {
-            items[index] = expense
+        if let index = Self.sharedItems.firstIndex(where: { $0.id == expense.id }) {
+            Self.sharedItems[index] = expense
         } else {
-            items.append(expense)
+            Self.sharedItems.append(expense)
         }
     }
 
     func delete(id: String) {
-        items.removeAll { $0.id == id }
+        Self.sharedItems.removeAll { $0.id == id }
     }
 
     func findById(_ id: String) -> Expense? {
-        items.first { $0.id == id }
+        Self.sharedItems.first { $0.id == id }
     }
 }
