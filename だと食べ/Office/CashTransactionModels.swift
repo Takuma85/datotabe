@@ -73,7 +73,7 @@ extension CashTransaction {
 
         let items: [CashTransaction] = [
             CashTransaction(
-                id: UUID().uuidString,
+                id: "sample_cash_tx_food_1",
                 storeId: storeId,
                 date: today,
                 time: cal.date(bySettingHour: 9, minute: 30, second: 0, of: now),

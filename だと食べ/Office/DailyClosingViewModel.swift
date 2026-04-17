@@ -7,6 +7,7 @@ final class DailyClosingViewModel: ObservableObject {
     // 依存関係
     private let repository: DailyClosingRepositoryProtocol
     private let storeId: String
+    private let currentUserId: String
 
     // 画面で表示・編集する1日分のレジ締めデータ
     @Published var closing: DailyClosing
@@ -19,15 +20,19 @@ final class DailyClosingViewModel: ObservableObject {
     init(
             storeId: String,
             date: Date,
+            currentUserId: String = "manager_1",
             repository: DailyClosingRepositoryProtocol = MockDailyClosingRepository()
         ) {
             self.storeId = storeId
             self.repository = repository
+            self.currentUserId = currentUserId
 
             if let loaded = repository.loadClosing(storeId: storeId, date: date) {
                 self.closing = loaded
             } else {
                 self.closing = DailyClosing(
+                    id: DailyClosing.makeId(storeId: storeId, date: date),
+                    storeId: storeId,
                     storeName: "だと食べ 本店",
                     date: date,
                     previousCashBalance: 0,
@@ -36,7 +41,9 @@ final class DailyClosingViewModel: ObservableObject {
                     cashOutTotal: 0,
                     actualCashBalance: 0,
                     note: "",
-                    status: .draft
+                    status: .draft,
+                    confirmedAt: nil,
+                    confirmedBy: nil
                 )
             }
         }
@@ -94,6 +101,8 @@ final class DailyClosingViewModel: ObservableObject {
     /// 店長が「締め確定」を押したときの処理
     func confirmClosing() {
             closing.status = .confirmed
+            closing.confirmedAt = Date()
+            closing.confirmedBy = currentUserId
             // 将来ここで Firebase に保存する
             repository.saveClosing(storeId: storeId, closing: closing)
             toastMessage = "レジ締めを締め確定しました。"

@@ -39,7 +39,7 @@ enum CashDenomination: Int, CaseIterable, Hashable, Identifiable {
 }
 
 /// レジ締めのステータス
-enum ClosingStatus: String, CaseIterable, Identifiable {
+enum ClosingStatus: String, CaseIterable, Identifiable, Codable, Hashable {
     case draft       // 自動計算だけ終わった状態
     case confirmed   // 店長が実残高を入力して締めた
     case approved    // オーナーなどが承認（必要なら使う）
@@ -57,15 +57,15 @@ enum ClosingStatus: String, CaseIterable, Identifiable {
 
 /// レジ締め1日分の表示用モデル（まだDBとは分離しておく想定）
 struct DailyClosing: Identifiable {
-    let id: UUID = UUID()
-
+    let id: String
+    var storeId: String
     var storeName: String             // 店舗名（今回は文字列だけ持つ）
     var date: Date                    // 対象日
 
-    // 前日からの繰越
+    // 要件: 前日からの繰越
     var previousCashBalance: Int      // 前日締め後のレジ残高（円）
 
-    // 当日の現金売上と入出金
+    // 要件: 当日の現金売上と入出金
     var cashSales: Int                // 当日現金売上
     var cashInTotal: Int              // 入金合計（釣銭投入など）
     var cashOutTotal: Int             // 出金合計（買い物・立替精算など）
@@ -77,6 +77,8 @@ struct DailyClosing: Identifiable {
     // メモ等
     var note: String
     var status: ClosingStatus
+    var confirmedAt: Date?
+    var confirmedBy: String?
 
     // MARK: - 計算プロパティ
 
@@ -90,8 +92,27 @@ struct DailyClosing: Identifiable {
         actualCashBalance - expectedCashBalance
     }
 
-    /// 差額に問題ありかどうか（仮で±1000円以上）
-    var hasIssue: Bool {
+    /// 要件: 課題フラグ（仮で±1000円以上）
+    var issueFlag: Bool {
         abs(difference) >= 1000
     }
+
+    /// 既存参照互換
+    var hasIssue: Bool {
+        issueFlag
+    }
+}
+
+extension DailyClosing {
+    static func makeId(storeId: String, date: Date) -> String {
+        let day = Calendar.current.startOfDay(for: date)
+        return "closing_\(storeId)_\(Self.idFormatter.string(from: day))"
+    }
+
+    private static let idFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateFormat = "yyyyMMdd"
+        return formatter
+    }()
 }

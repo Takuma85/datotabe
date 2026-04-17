@@ -41,6 +41,23 @@ struct DailyClosingView: View {
                     Text(viewModel.statusText)
                         .foregroundColor(.secondary)
                 }
+
+                HStack {
+                    Text("締め確定者")
+                    Spacer()
+                    Text(viewModel.closing.confirmedBy ?? "未確定")
+                        .foregroundColor(.secondary)
+                }
+
+                HStack {
+                    Text("締め確定日時")
+                    Spacer()
+                    Text(
+                        viewModel.closing.confirmedAt.map(Self.dateTimeFormatter.string(from:))
+                        ?? "未確定"
+                    )
+                    .foregroundColor(.secondary)
+                }
             }
 
             // 理論値の計算サマリ
@@ -83,7 +100,15 @@ struct DailyClosingView: View {
                         .fontWeight(.semibold)
                 }
 
-                if viewModel.closing.hasIssue {
+                HStack {
+                    Text("課題フラグ")
+                    Spacer()
+                    Text(viewModel.closing.issueFlag ? "要確認" : "問題なし")
+                        .foregroundColor(viewModel.closing.issueFlag ? .red : .secondary)
+                        .fontWeight(viewModel.closing.issueFlag ? .semibold : .regular)
+                }
+
+                if viewModel.closing.issueFlag {
                     Text("※ 差額が大きいため、入出金や売上データを確認してください。")
                         .font(.footnote)
                         .foregroundColor(.red)
@@ -191,6 +216,14 @@ struct DailyClosingView: View {
                 showAlert = true
             }
         }
+
+    private static let dateTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }()
 }
 
 #Preview {

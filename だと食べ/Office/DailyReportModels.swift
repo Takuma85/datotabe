@@ -52,8 +52,20 @@ struct DailyReport: Identifiable, Hashable, Codable {
     /// 時間帯別の内訳（必ず all_day を含む）
     var segments: [DailyReportSegment]
 
+    /// 要件: 日報に経費 / 労務 / 締め情報を統合
+    var totalExpenses: Int
+    var totalLaborMinutes: Int
+    var dailyClosingId: String?
+    var dailyClosingStatus: ClosingStatus?
+    var cashDifference: Int?
+
     var notes: String?
     var issueNotes: String?
+
+    var isClosingCompleted: Bool {
+        guard let status = dailyClosingStatus else { return false }
+        return status == .confirmed || status == .approved
+    }
 }
 
 // MARK: - モックデータ（画面作り用）
@@ -106,9 +118,13 @@ extension DailyReport {
             status: .draft,
             total: allDay,
             segments: [allDay, lunch, dinner],
+            totalExpenses: 12_000,
+            totalLaborMinutes: 510,
+            dailyClosingId: DailyClosing.makeId(storeId: "store_1", date: Date()),
+            dailyClosingStatus: .draft,
+            cashDifference: nil,
             notes: "サンプル日報",
             issueNotes: nil
         )
     }
 }
-
