@@ -1,0 +1,72 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "fd5a277a9a698cf32ab4c737e5f76b587e3ed8215c85cdb778388d6676007bce"
+    }
+  ],
+  "containerPath" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/だと食べ.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "undefined_arch",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : true,
+      "platform" : "iphoneos",
+      "sdk" : "iphoneos18.5",
+      "sdkVariant" : "iphoneos",
+      "supportedArchitectures" : [
+        "armv4t",
+        "armv5",
+        "armv6",
+        "armv7",
+        "armv7f",
+        "armv7s",
+        "armv7k",
+        "arm64",
+        "arm64e"
+      ],
+      "targetArchitecture" : "undefined_arch"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Products",
+      "derivedDataPath" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data",
+      "indexDataStoreFolderPath" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "CLANG_COVERAGE_MAPPING" : "YES",
+          "CLANG_PROFILE_DATA_DIRECTORY" : "/Users/hirasawa4323/.codex/worktrees/9188/datotabe/.derived-data/Build/ProfileData",
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "YES",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
