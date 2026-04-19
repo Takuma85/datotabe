@@ -123,7 +123,7 @@ private func loadOrderCategories() -> [SeatOrderCategory] {
     loadCodable(key: orderCategoriesStorageKey, fallback: defaultOrderCategories())
 }
 
-private func loadOrderMenu() -> [SeatMenuItem] {
+func loadOrderMenu() -> [SeatMenuItem] {
     loadCodable(key: orderMenuStorageKey, fallback: defaultOrderMenu())
 }
 
@@ -137,10 +137,6 @@ private func saveSeatOrderHistory(_ history: [SeatOrderRecord], seatId: String) 
 
 private func loadSeatStock() -> SeatStock {
     loadCodable(key: orderStockStorageKey, fallback: [:])
-}
-
-private func saveSeatStock(_ stock: SeatStock) {
-    saveCodable(stock, key: orderStockStorageKey)
 }
 
 private func inferredOptions(for item: SeatMenuItem) -> [String]? {
@@ -160,6 +156,7 @@ private func inferredOptions(for item: SeatMenuItem) -> [String]? {
 }
 
 func clearSeatOrderHistory(seatId: String) {
+    InventoryStorage.consumeReservations(forSeatId: seatId)
     UserDefaults.standard.removeObject(forKey: orderHistoryStorageKey(seatId: seatId))
 }
 
@@ -207,6 +204,9 @@ final class SeatOrderViewModel: ObservableObject {
     @Published var categories: [SeatOrderCategory] = []
     @Published var menu: [SeatMenuItem] = []
     @Published var stock: SeatStock = [:]
+    @Published var inventoryItems: [InventoryItem] = []
+    @Published var inventoryLinks: [InventoryItemLink] = []
+    @Published var inventoryReservations: [InventoryReservation] = []
     @Published var history: [SeatOrderRecord] = []
     @Published var cart: [SeatCartEntry] = []
     @Published var activeCategoryId: String = "all"
@@ -221,6 +221,9 @@ final class SeatOrderViewModel: ObservableObject {
         categories = loadOrderCategories()
         menu = loadOrderMenu()
         stock = loadSeatStock()
+        inventoryItems = InventoryStorage.loadIngredients()
+        inventoryLinks = InventoryStorage.loadLinks()
+        inventoryReservations = InventoryStorage.loadReservations()
         history = loadSeatOrderHistory(seatId: seatId).sorted { $0.at > $1.at }
     }
 
@@ -239,8 +242,48 @@ final class SeatOrderViewModel: ObservableObject {
     }
 
     func availableStock(for item: SeatMenuItem) -> Int? {
+        if let linkedCapacity = linkedCapacityForMenu(itemId: item.id) {
+            return max(linkedCapacity - quantityInCart(for: item.id), 0)
+        }
+
         guard let current = stock[item.id] else { return nil }
         return max(current - quantityInCart(for: item.id), 0)
+    }
+
+    private func linkedCapacityForMenu(itemId: String) -> Int? {
+        let links = inventoryLinks.filter {
+            $0.menuItemId == itemId && $0.isActive && $0.quantityPerSale > 0
+        }
+        guard !links.isEmpty else { return nil }
+
+        var minCapacity: Int?
+        for link in links {
+            guard let inventoryItem = inventoryItems.first(where: { $0.id == link.inventoryItemId }) else {
+                return 0
+            }
+
+            let available = max(inventoryItem.availableQuantity, 0)
+            let capacity = available / link.quantityPerSale
+            minCapacity = minCapacity.map { min($0, capacity) } ?? capacity
+        }
+
+        return minCapacity ?? 0
+    }
+
+    private func requiredInventoryQuantities(from entries: [SeatCartEntry]) -> [String: Int] {
+        var required: [String: Int] = [:]
+        let linksByMenu = Dictionary(grouping: inventoryLinks.filter { $0.isActive && $0.quantityPerSale > 0 }) {
+            $0.menuItemId
+        }
+
+        for entry in entries {
+            guard let links = linksByMenu[entry.itemId] else { continue }
+            for link in links {
+                required[link.inventoryItemId, default: 0] += entry.quantity * link.quantityPerSale
+            }
+        }
+
+        return required
     }
 
     func isSoldOut(_ item: SeatMenuItem) -> Bool {
@@ -295,13 +338,14 @@ final class SeatOrderViewModel: ObservableObject {
         }
 
         let itemId = cart[index].itemId
-        let otherQty = cart
-            .filter { $0.itemId == itemId && $0.id != entryId }
-            .reduce(0) { $0 + $1.quantity }
-
-        if let currentStock = stock[itemId], quantity + otherQty > currentStock {
-            showToast("在庫数を超えています")
-            return
+        if let menuItem = menu.first(where: { $0.id == itemId }),
+           let remaining = availableStock(for: menuItem) {
+            // availableStock は現在のカート数量を差し引いた値なので、編集中行の数量ぶんは戻して判定する。
+            let maxAllowed = remaining + cart[index].quantity
+            if quantity > maxAllowed {
+                showToast("在庫数を超えています")
+                return
+            }
         }
 
         cart[index].quantity = quantity
@@ -338,14 +382,10 @@ final class SeatOrderViewModel: ObservableObject {
         history = nextHistory
         saveSeatOrderHistory(nextHistory, seatId: seatId)
 
-        var nextStock = stock
-        for entry in cart {
-            if let current = nextStock[entry.itemId] {
-                nextStock[entry.itemId] = max(current - entry.quantity, 0)
-            }
-        }
-        stock = nextStock
-        saveSeatStock(nextStock)
+        let requiredByInventoryId = requiredInventoryQuantities(from: cart)
+        InventoryStorage.reserveForSeat(seatId: seatId, requiredByInventoryId: requiredByInventoryId)
+        inventoryItems = InventoryStorage.loadIngredients()
+        inventoryReservations = InventoryStorage.loadReservations()
 
         cart.removeAll()
         showToast("注文を登録しました")
@@ -719,4 +759,3 @@ private struct OrderFilterChipStyle: ButtonStyle {
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }
-

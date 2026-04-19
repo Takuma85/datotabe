@@ -303,7 +303,8 @@ final class BillingViewModel: ObservableObject {
            let payment = nextPayments.last(where: { $0.id == lastCommittedPaymentID }),
            lastStageReceipt == nil {
             let isSplit = !(payment.itemIds?.isEmpty ?? true)
-            let stageFullyDone = if isSplit, let ids = payment.itemIds {
+            let stageFullyDone: Bool
+            if isSplit, let ids = payment.itemIds {
                 let selectedIds = Set(ids)
                 let selectedTotal = initialItems
                     .filter { selectedIds.contains($0.id) }
@@ -314,12 +315,16 @@ final class BillingViewModel: ObservableObject {
                         return itemIds.contains { selectedIds.contains($0) }
                     }
                     .reduce(0) { $0 + $1.amount }
-                selectedTotal > 0 && selectedPaid >= selectedTotal
+                stageFullyDone = selectedTotal > 0 && selectedPaid >= selectedTotal
             } else {
-                max(remainingItems.reduce(0) { $0 + $1.lineTotal }
-                    - nextPayments
-                        .filter { $0.itemIds == nil || $0.itemIds?.isEmpty == true }
-                        .reduce(0) { $0 + $1.amount }, 0) <= 0
+                let remaining = max(
+                    remainingItems.reduce(0) { $0 + $1.lineTotal }
+                        - nextPayments
+                            .filter { $0.itemIds == nil || $0.itemIds?.isEmpty == true }
+                            .reduce(0) { $0 + $1.amount },
+                    0
+                )
+                stageFullyDone = remaining <= 0
             }
 
             if stageFullyDone {
