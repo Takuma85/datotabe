@@ -14,13 +14,16 @@ final class ExpenseViewModel: ObservableObject {
 
     private let storeId: String
     private let repository: ExpenseRepository
+    private let cashTransactionRepository: CashTransactionRepository
 
     init(
         storeId: String = "store_1",
-        repository: ExpenseRepository = MockExpenseRepository()
+        repository: ExpenseRepository = MockExpenseRepository(),
+        cashTransactionRepository: CashTransactionRepository = MockCashTransactionRepository()
     ) {
         self.storeId = storeId
         self.repository = repository
+        self.cashTransactionRepository = cashTransactionRepository
 
         let today = Calendar.current.startOfDay(for: Date())
         self.toDate = today
@@ -43,14 +46,20 @@ final class ExpenseViewModel: ObservableObject {
     }
 
     func save(expense: Expense) {
-        repository.save(expense: expense)
+        var updated = expense
+        updated.updatedAt = Date()
+        updated = synchronizeCashFlowLink(for: updated)
+        repository.save(expense: updated)
         loadList()
     }
 
     func delete(at offsets: IndexSet) {
         for index in offsets {
-            let id = expenses[index].id
-            repository.delete(id: id)
+            let target = expenses[index]
+            if let txId = target.cashTransactionId {
+                cashTransactionRepository.delete(id: txId)
+            }
+            repository.delete(id: target.id)
         }
         loadList()
     }
@@ -73,6 +82,7 @@ final class ExpenseViewModel: ObservableObject {
             isReimbursed: false,
             reimbursedAt: nil,
             reimbursementCashTransactionId: nil,
+            cashTransactionId: nil,
             receiptImagePath: nil,
             memo: "",
             status: .submitted,
@@ -98,6 +108,72 @@ final class ExpenseViewModel: ObservableObject {
             .map { $0.amount }
             .reduce(0, +)
     }
+
+    var cashExpenseTotal: Int {
+        expenses
+            .filter { $0.paymentMethod == .cash }
+            .map(\.amount)
+            .reduce(0, +)
+    }
+
+    var linkedCashExpenseCount: Int {
+        expenses.filter { $0.paymentMethod == .cash && $0.cashTransactionId != nil }.count
+    }
+
+    var unlinkedCashExpenseCount: Int {
+        expenses.filter { $0.paymentMethod == .cash && $0.cashTransactionId == nil }.count
+    }
+
+    func linkedCashTransaction(for expense: Expense) -> CashTransaction? {
+        guard let txId = expense.cashTransactionId else { return nil }
+        return cashTransactionRepository.findById(txId)
+    }
+
+    // MARK: - Helpers
+
+    private func synchronizeCashFlowLink(for expense: Expense) -> Expense {
+        var updated = expense
+
+        guard updated.paymentMethod == .cash else {
+            if let txId = updated.cashTransactionId {
+                cashTransactionRepository.delete(id: txId)
+            }
+            updated.cashTransactionId = nil
+            return updated
+        }
+
+        let transactionId = updated.cashTransactionId ?? UUID().uuidString
+        let existing = cashTransactionRepository.findById(transactionId)
+
+        let transaction = CashTransaction(
+            id: transactionId,
+            storeId: updated.storeId,
+            date: Calendar.current.startOfDay(for: updated.date),
+            time: existing?.time ?? Date(),
+            type: .out,
+            amount: updated.amount,
+            category: existing?.category ?? .purchase,
+            expenseId: updated.id,
+            vendorId: updated.vendorId,
+            description: cashExpenseDescription(for: updated),
+            createdByUserId: existing?.createdByUserId ?? updated.createdByUserId,
+            updatedByUserId: updated.updatedByUserId,
+            createdAt: existing?.createdAt ?? updated.createdAt,
+            updatedAt: Date()
+        )
+        cashTransactionRepository.save(transaction: transaction)
+
+        updated.cashTransactionId = transactionId
+        return updated
+    }
+
+    private func cashExpenseDescription(for expense: Expense) -> String {
+        let memo = expense.memo.trimmingCharacters(in: .whitespacesAndNewlines)
+        if memo.isEmpty {
+            return "経費（\(expense.category.label)）"
+        }
+        return "経費（\(expense.category.label)）: \(memo)"
+    }
 }
 
 @MainActor
@@ -107,13 +183,16 @@ final class ExpenseReimbursementViewModel: ObservableObject {
 
     private let storeId: String
     private let repository: ExpenseRepository
+    private let cashTransactionRepository: CashTransactionRepository
 
     init(
         storeId: String = "store_1",
-        repository: ExpenseRepository = MockExpenseRepository()
+        repository: ExpenseRepository = MockExpenseRepository(),
+        cashTransactionRepository: CashTransactionRepository = MockCashTransactionRepository()
     ) {
         self.storeId = storeId
         self.repository = repository
+        self.cashTransactionRepository = cashTransactionRepository
         loadList()
     }
 
@@ -137,8 +216,28 @@ final class ExpenseReimbursementViewModel: ObservableObject {
         var updated = expense
         updated.isReimbursed = true
         updated.reimbursedAt = Date()
-        updated.reimbursementCashTransactionId = "mock_cash_tx_\(UUID().uuidString)"
         updated.updatedAt = Date()
+
+        let txId = updated.reimbursementCashTransactionId ?? "reimburse_\(UUID().uuidString)"
+        let transaction = CashTransaction(
+            id: txId,
+            storeId: updated.storeId,
+            date: Calendar.current.startOfDay(for: updated.date),
+            time: Date(),
+            type: .out,
+            amount: updated.amount,
+            category: .expenseReimburse,
+            expenseId: updated.id,
+            vendorId: updated.vendorId,
+            description: "立替精算",
+            createdByUserId: updated.createdByUserId,
+            updatedByUserId: updated.updatedByUserId,
+            createdAt: updated.createdAt,
+            updatedAt: Date()
+        )
+
+        cashTransactionRepository.save(transaction: transaction)
+        updated.reimbursementCashTransactionId = transaction.id
         repository.save(expense: updated)
         loadList()
     }

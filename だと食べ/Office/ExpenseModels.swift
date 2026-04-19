@@ -82,6 +82,7 @@ struct Expense: Identifiable, Hashable, Codable {
     var isReimbursed: Bool
     var reimbursedAt: Date?
     var reimbursementCashTransactionId: String?
+    var cashTransactionId: String?
 
     var receiptImagePath: String?
     var memo: String
@@ -120,6 +121,7 @@ extension Expense {
                 isReimbursed: false,
                 reimbursedAt: nil,
                 reimbursementCashTransactionId: nil,
+                cashTransactionId: "sample_cash_tx_food_1",
                 receiptImagePath: nil,
                 memo: "営業用",
                 status: .approved,
@@ -146,6 +148,7 @@ extension Expense {
                 isReimbursed: false,
                 reimbursedAt: nil,
                 reimbursementCashTransactionId: nil,
+                cashTransactionId: nil,
                 receiptImagePath: nil,
                 memo: "氷購入",
                 status: .submitted,

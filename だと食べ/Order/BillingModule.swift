@@ -304,6 +304,10 @@ final class BillingViewModel: ObservableObject {
            lastStageReceipt == nil {
             let isSplit = !(payment.itemIds?.isEmpty ?? true)
             let stageFullyDone: Bool
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
             if isSplit, let ids = payment.itemIds {
                 let selectedIds = Set(ids)
                 let selectedTotal = initialItems
@@ -317,6 +321,7 @@ final class BillingViewModel: ObservableObject {
                     .reduce(0) { $0 + $1.amount }
                 stageFullyDone = selectedTotal > 0 && selectedPaid >= selectedTotal
             } else {
+<<<<<<< HEAD
                 let remaining = max(
                     remainingItems.reduce(0) { $0 + $1.lineTotal }
                         - nextPayments
@@ -325,6 +330,13 @@ final class BillingViewModel: ObservableObject {
                     0
                 )
                 stageFullyDone = remaining <= 0
+=======
+                let remainingOverall = max(remainingItems.reduce(0) { $0 + $1.lineTotal }
+                    - nextPayments
+                        .filter { $0.itemIds == nil || $0.itemIds?.isEmpty == true }
+                        .reduce(0) { $0 + $1.amount }, 0)
+                stageFullyDone = remainingOverall <= 0
+>>>>>>> origin/main
             }
 
             if stageFullyDone {
@@ -361,9 +373,20 @@ final class BillingViewModel: ObservableObject {
 
 struct BillingView: View {
     @StateObject var viewModel: BillingViewModel
+<<<<<<< HEAD
     var onClose: (() -> Void)? = nil
     var onCompleted: ((SettlementResult) -> Void)? = nil
 
+=======
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    var onClose: (() -> Void)? = nil
+    var onCompleted: ((SettlementResult) -> Void)? = nil
+
+    private var isCompactLayout: Bool {
+        horizontalSizeClass == .compact
+    }
+
+>>>>>>> origin/main
     var body: some View {
         Group {
             if let stage = viewModel.lastStage, viewModel.isAllDone {
@@ -399,7 +422,24 @@ struct BillingView: View {
     }
 
     private var billingMainView: some View {
+<<<<<<< HEAD
         VStack(alignment: .leading, spacing: 16) {
+=======
+        Group {
+            if isCompactLayout {
+                ScrollView {
+                    billingContent
+                }
+            } else {
+                billingContent
+            }
+        }
+        .background(Color(uiColor: .systemGroupedBackground))
+    }
+
+    private var billingContent: some View {
+        VStack(alignment: .leading, spacing: isCompactLayout ? 12 : 16) {
+>>>>>>> origin/main
             HStack {
                 Text("会計（テーブル \(viewModel.tableId) / \(viewModel.people)名）")
                     .font(.title3)
@@ -411,6 +451,7 @@ struct BillingView: View {
                 }
             }
 
+<<<<<<< HEAD
             HStack(alignment: .top, spacing: 16) {
                 leftPanel
                 rightPanel
@@ -435,6 +476,84 @@ struct BillingView: View {
     }
 
     private var leftPanel: some View {
+=======
+            if isCompactLayout {
+                rightPanel(isCompact: true)
+                leftPanel(isCompact: true)
+            } else {
+                HStack(alignment: .top, spacing: 16) {
+                    leftPanel(isCompact: false)
+                    rightPanel(isCompact: false)
+                }
+            }
+
+            toastView
+        }
+        .padding(isCompactLayout ? 12 : 16)
+    }
+
+    @ViewBuilder
+    private var toastView: some View {
+        if !viewModel.toast.isEmpty {
+            HStack {
+                Spacer()
+                Text(viewModel.toast)
+                    .font(.footnote)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.black.opacity(0.8))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                Spacer()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var orderItemsList: some View {
+        VStack(spacing: 8) {
+            ForEach(viewModel.items) { item in
+                let selected = viewModel.selectedItemIds.contains(item.id)
+                HStack(spacing: 10) {
+                    Button {
+                        viewModel.toggleSelection(for: item)
+                    } label: {
+                        Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                            .foregroundColor(selected ? .blue : .gray)
+                    }
+                    .buttonStyle(.plain)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(item.name)
+                        Text("¥\(item.unitPrice) × \(item.quantity)")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+
+                    Spacer()
+
+                    Text(formatYen(item.lineTotal))
+                        .fontWeight(.medium)
+                }
+                .padding(10)
+                .background(selected ? Color.blue.opacity(0.08) : Color(uiColor: .secondarySystemBackground))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(selected ? Color.blue : Color.clear, lineWidth: 1)
+                )
+                .cornerRadius(12)
+            }
+
+            if viewModel.items.isEmpty {
+                Text("すべて精算済み")
+                    .foregroundColor(.secondary)
+                    .padding(.top, 12)
+            }
+        }
+    }
+
+    private func leftPanel(isCompact: Bool) -> some View {
+>>>>>>> origin/main
         VStack(alignment: .leading, spacing: 12) {
             Text("支払い方法")
                 .font(.headline)
@@ -487,6 +606,7 @@ struct BillingView: View {
                     .foregroundColor(.secondary)
             }
 
+<<<<<<< HEAD
             ScrollView {
                 VStack(spacing: 8) {
                     ForEach(viewModel.items) { item in
@@ -526,6 +646,13 @@ struct BillingView: View {
                             .foregroundColor(.secondary)
                             .padding(.top, 12)
                     }
+=======
+            if isCompact {
+                orderItemsList
+            } else {
+                ScrollView {
+                    orderItemsList
+>>>>>>> origin/main
                 }
             }
 
@@ -541,7 +668,11 @@ struct BillingView: View {
         .cornerRadius(16)
     }
 
+<<<<<<< HEAD
     private var rightPanel: some View {
+=======
+    private func rightPanel(isCompact: Bool) -> some View {
+>>>>>>> origin/main
         VStack(alignment: .leading, spacing: 12) {
             KeyValueRow(label: "ターゲット残額", value: formatYen(viewModel.targetRemaining))
 
@@ -551,6 +682,7 @@ struct BillingView: View {
                     .foregroundColor(.secondary)
             }
 
+<<<<<<< HEAD
             HStack(spacing: 8) {
                 Button("¥1,000") { viewModel.addAmount(1000) }
                     .buttonStyle(ShortcutButtonStyle())
@@ -560,6 +692,30 @@ struct BillingView: View {
                     .buttonStyle(ShortcutButtonStyle())
                 Button("残額") { viewModel.fillTarget() }
                     .buttonStyle(OutlineShortcutButtonStyle())
+=======
+            if isCompact {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2), spacing: 8) {
+                    Button("¥1,000") { viewModel.addAmount(1000) }
+                        .buttonStyle(ShortcutButtonStyle())
+                    Button("¥5,000") { viewModel.addAmount(5000) }
+                        .buttonStyle(ShortcutButtonStyle())
+                    Button("¥10,000") { viewModel.addAmount(10000) }
+                        .buttonStyle(ShortcutButtonStyle())
+                    Button("残額") { viewModel.fillTarget() }
+                        .buttonStyle(OutlineShortcutButtonStyle())
+                }
+            } else {
+                HStack(spacing: 8) {
+                    Button("¥1,000") { viewModel.addAmount(1000) }
+                        .buttonStyle(ShortcutButtonStyle())
+                    Button("¥5,000") { viewModel.addAmount(5000) }
+                        .buttonStyle(ShortcutButtonStyle())
+                    Button("¥10,000") { viewModel.addAmount(10000) }
+                        .buttonStyle(ShortcutButtonStyle())
+                    Button("残額") { viewModel.fillTarget() }
+                        .buttonStyle(OutlineShortcutButtonStyle())
+                }
+>>>>>>> origin/main
             }
 
             KeypadView(
@@ -593,10 +749,19 @@ struct BillingView: View {
                         }
                     }
                 }
+<<<<<<< HEAD
                 .frame(maxHeight: 220)
             }
 
             Spacer()
+=======
+                .frame(maxHeight: isCompact ? 180 : 220)
+            }
+
+            if !isCompact {
+                Spacer()
+            }
+>>>>>>> origin/main
 
             Button {
                 viewModel.commitPayment()
@@ -609,7 +774,11 @@ struct BillingView: View {
             .disabled(!viewModel.canCommit)
         }
         .padding()
+<<<<<<< HEAD
         .frame(width: 360, alignment: .topLeading)
+=======
+        .frame(maxWidth: isCompact ? .infinity : 360, alignment: .topLeading)
+>>>>>>> origin/main
         .background(Color(uiColor: .systemBackground))
         .cornerRadius(16)
     }
@@ -618,10 +787,21 @@ struct BillingView: View {
 // MARK: - Stage Done / Overall Done
 
 struct StageDoneView: View {
+<<<<<<< HEAD
+=======
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+>>>>>>> origin/main
     let stage: StageReceipt
     let onCancelLast: () -> Void
     let onNext: () -> Void
 
+<<<<<<< HEAD
+=======
+    private var isCompactLayout: Bool {
+        horizontalSizeClass == .compact
+    }
+
+>>>>>>> origin/main
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("会計完了（このステージ）")
@@ -650,12 +830,32 @@ struct StageDoneView: View {
             .background(Color(uiColor: .systemBackground))
             .cornerRadius(16)
 
+<<<<<<< HEAD
             HStack {
                 Button("直前の受領を取り消す", action: onCancelLast)
                     .buttonStyle(.bordered)
                 Spacer()
                 Button("次の会計へ進む", action: onNext)
                     .buttonStyle(.borderedProminent)
+=======
+            if isCompactLayout {
+                VStack(spacing: 10) {
+                    Button("次の会計へ進む", action: onNext)
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity)
+                    Button("直前の受領を取り消す", action: onCancelLast)
+                        .buttonStyle(.bordered)
+                        .frame(maxWidth: .infinity)
+                }
+            } else {
+                HStack {
+                    Button("直前の受領を取り消す", action: onCancelLast)
+                        .buttonStyle(.bordered)
+                    Spacer()
+                    Button("次の会計へ進む", action: onNext)
+                        .buttonStyle(.borderedProminent)
+                }
+>>>>>>> origin/main
             }
 
             Spacer()
@@ -666,12 +866,23 @@ struct StageDoneView: View {
 }
 
 struct OverallDoneView: View {
+<<<<<<< HEAD
+=======
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+>>>>>>> origin/main
     let tableId: String
     let people: Int
     let stage: StageReceipt
     let onCancelLast: () -> Void
     let onFinish: () -> Void
 
+<<<<<<< HEAD
+=======
+    private var isCompactLayout: Bool {
+        horizontalSizeClass == .compact
+    }
+
+>>>>>>> origin/main
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("会計全体完了")
@@ -703,12 +914,32 @@ struct OverallDoneView: View {
             .background(Color(uiColor: .systemBackground))
             .cornerRadius(16)
 
+<<<<<<< HEAD
             HStack {
                 Button("直前の受領を取り消す", action: onCancelLast)
                     .buttonStyle(.bordered)
                 Spacer()
                 Button("完了", action: onFinish)
                     .buttonStyle(.borderedProminent)
+=======
+            if isCompactLayout {
+                VStack(spacing: 10) {
+                    Button("完了", action: onFinish)
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity)
+                    Button("直前の受領を取り消す", action: onCancelLast)
+                        .buttonStyle(.bordered)
+                        .frame(maxWidth: .infinity)
+                }
+            } else {
+                HStack {
+                    Button("直前の受領を取り消す", action: onCancelLast)
+                        .buttonStyle(.bordered)
+                    Spacer()
+                    Button("完了", action: onFinish)
+                        .buttonStyle(.borderedProminent)
+                }
+>>>>>>> origin/main
             }
 
             Spacer()

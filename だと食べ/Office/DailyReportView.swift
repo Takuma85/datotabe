@@ -135,13 +135,26 @@ struct DailyReportView: View {
                             Text("売上合計：\(formatCurrency(report.total.totalSales))")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+                            Text("経費：\(formatCurrency(report.totalExpenses)) / 労務：\(formatMinutes(report.totalLaborMinutes))")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
                         }
                         Spacer()
-                        Text(label(for: report.status))
-                            .font(.caption)
-                            .padding(4)
-                            .background(Color.gray.opacity(0.15))
-                            .cornerRadius(4)
+                        VStack(alignment: .trailing, spacing: 6) {
+                            Text(label(for: report.status))
+                                .font(.caption)
+                                .padding(4)
+                                .background(Color.gray.opacity(0.15))
+                                .cornerRadius(4)
+
+                            Text(closingLabel(for: report))
+                                .font(.caption2)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 3)
+                                .background(closingColor(for: report).opacity(0.18))
+                                .foregroundColor(closingColor(for: report))
+                                .cornerRadius(4)
+                        }
                     }
                 }
             }
@@ -175,6 +188,20 @@ struct DailyReportView: View {
                         // 1日トータル
                         GroupBox("1日トータル") {
                             segmentView(report.total)
+                        }
+
+                        GroupBox("経費・労務・レジ締め") {
+                            VStack(alignment: .leading, spacing: 8) {
+                                detailRow(label: "経費合計", value: formatCurrency(report.totalExpenses))
+                                detailRow(label: "労務時間", value: formatMinutes(report.totalLaborMinutes))
+                                detailRow(label: "レジ締め状況", value: closingLabel(for: report))
+                                detailRow(
+                                    label: "現金差額",
+                                    value: report.cashDifference.map { formatSignedCurrency($0) } ?? "未確定"
+                                )
+                                detailRow(label: "締めID", value: report.dailyClosingId ?? "未連携")
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
 
                         // 時間帯別
@@ -285,6 +312,15 @@ struct DailyReportView: View {
         }
     }
 
+    private func detailRow(label: String, value: String) -> some View {
+        HStack {
+            Text(label)
+            Spacer()
+            Text(value)
+                .foregroundColor(.secondary)
+        }
+    }
+
     // MARK: - フォーマット系
 
     private func formatDate(_ date: Date) -> String {
@@ -296,12 +332,54 @@ struct DailyReportView: View {
         return "¥" + (Self.numberFormatter.string(from: number) ?? "\(value)")
     }
 
+    private func formatSignedCurrency(_ value: Int) -> String {
+        if value == 0 {
+            return formatCurrency(0)
+        }
+        let sign = value > 0 ? "+" : "-"
+        return "\(sign)\(formatCurrency(abs(value)))"
+    }
+
+    private func formatMinutes(_ minutes: Int) -> String {
+        let hours = minutes / 60
+        let remainder = minutes % 60
+        return "\(hours)時間\(remainder)分"
+    }
+
     private func label(for status: DailyReport.Status) -> String {
         switch status {
         case .draft: return "下書き"
         case .submitted: return "提出済み"
         case .approved: return "承認済み"
         case .rejected: return "差戻し"
+        }
+    }
+
+    private func closingLabel(for report: DailyReport) -> String {
+        guard let status = report.dailyClosingStatus else {
+            return "未締め"
+        }
+        switch status {
+        case .draft:
+            return "未締め"
+        case .confirmed:
+            return "締め済み"
+        case .approved:
+            return "承認済み"
+        }
+    }
+
+    private func closingColor(for report: DailyReport) -> Color {
+        guard let status = report.dailyClosingStatus else {
+            return .orange
+        }
+        switch status {
+        case .draft:
+            return .orange
+        case .confirmed:
+            return .green
+        case .approved:
+            return .blue
         }
     }
 
@@ -328,4 +406,3 @@ struct DailyReportView_Previews: PreviewProvider {
         DailyReportView()
     }
 }
-

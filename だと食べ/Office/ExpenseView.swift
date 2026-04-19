@@ -11,9 +11,20 @@ struct ExpenseView: View {
     private let storeId: String = "store_1"
 
     init() {
-        let repository = MockExpenseRepository()
-        _viewModel = StateObject(wrappedValue: ExpenseViewModel(repository: repository))
-        _reimbursementViewModel = StateObject(wrappedValue: ExpenseReimbursementViewModel(repository: repository))
+        let expenseRepository = MockExpenseRepository()
+        let cashTransactionRepository = MockCashTransactionRepository()
+        _viewModel = StateObject(
+            wrappedValue: ExpenseViewModel(
+                repository: expenseRepository,
+                cashTransactionRepository: cashTransactionRepository
+            )
+        )
+        _reimbursementViewModel = StateObject(
+            wrappedValue: ExpenseReimbursementViewModel(
+                repository: expenseRepository,
+                cashTransactionRepository: cashTransactionRepository
+            )
+        )
     }
 
     var body: some View {
@@ -156,11 +167,21 @@ struct ExpenseView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("経費合計：\(formatCurrency(viewModel.totalAmount))")
                 Text("精算済み合計：\(formatCurrency(viewModel.reimbursedTotal))")
+                Text(
+                    "現金払い連携：\(viewModel.linkedCashExpenseCount)件（未連携 \(viewModel.unlinkedCashExpenseCount)件）"
+                )
+                .font(.caption)
+                .foregroundColor(viewModel.unlinkedCashExpenseCount == 0 ? .secondary : .orange)
             }
             Spacer()
-            Text("未精算立替：\(formatCurrency(viewModel.unreimbursedTotal))")
-                .fontWeight(.semibold)
-                .foregroundColor(.red)
+            VStack(alignment: .trailing, spacing: 4) {
+                Text("未精算立替：\(formatCurrency(viewModel.unreimbursedTotal))")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.red)
+                Text("現金経費合計：\(formatCurrency(viewModel.cashExpenseTotal))")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
         .padding([.horizontal, .vertical], 12)
     }
@@ -273,6 +294,24 @@ struct ExpenseView: View {
                 }
             }
             .foregroundColor(.secondary)
+
+            if expense.taxAmount > 0 {
+                Text("税額：\(formatCurrency(expense.taxAmount))")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+
+            if expense.paymentMethod == .cash {
+                if let linkedTx = viewModel.linkedCashTransaction(for: expense) {
+                    Text("入出金連携：\(linkedTx.id)")
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                } else {
+                    Text("入出金連携：未連携")
+                        .font(.caption)
+                        .foregroundColor(.orange)
+                }
+            }
 
             let vendorName = displayVendorName(for: expense)
             if !vendorName.isEmpty {
@@ -399,6 +438,12 @@ private struct ExpenseFormView: View {
                         }
                     }
                 }
+
+                if expense.paymentMethod == .cash {
+                    Text("入出金連携ID：\(expense.cashTransactionId ?? "保存時に自動採番")")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
 
             Section(header: Text("取引先・メモ")) {
@@ -495,6 +540,10 @@ private struct ExpenseFormView: View {
             }
             expense.reimbursedAt = nil
             expense.reimbursementCashTransactionId = nil
+        }
+
+        if expense.paymentMethod != .cash {
+            expense.cashTransactionId = nil
         }
 
         onSave(expense)

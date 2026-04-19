@@ -17,10 +17,12 @@ protocol CashTransactionRepository {
 }
 
 final class MockCashTransactionRepository: CashTransactionRepository {
-    private var items: [CashTransaction]
+    private static var sharedItems: [CashTransaction] = CashTransaction.sample()
 
-    init(seed: [CashTransaction] = CashTransaction.sample()) {
-        self.items = seed
+    init(seed: [CashTransaction]? = nil) {
+        if let seed {
+            Self.sharedItems = seed
+        }
     }
 
     func fetchTransactions(
@@ -36,7 +38,7 @@ final class MockCashTransactionRepository: CashTransactionRepository {
         let fromDay = cal.startOfDay(for: from)
         let toDay = cal.startOfDay(for: to)
 
-        return items
+        return Self.sharedItems
             .filter { $0.storeId == storeId }
             .filter { tx in
                 let d = cal.startOfDay(for: tx.date)
@@ -75,18 +77,18 @@ final class MockCashTransactionRepository: CashTransactionRepository {
     }
 
     func save(transaction: CashTransaction) {
-        if let index = items.firstIndex(where: { $0.id == transaction.id }) {
-            items[index] = transaction
+        if let index = Self.sharedItems.firstIndex(where: { $0.id == transaction.id }) {
+            Self.sharedItems[index] = transaction
         } else {
-            items.append(transaction)
+            Self.sharedItems.append(transaction)
         }
     }
 
     func delete(id: String) {
-        items.removeAll { $0.id == id }
+        Self.sharedItems.removeAll { $0.id == id }
     }
 
     func findById(_ id: String) -> CashTransaction? {
-        items.first { $0.id == id }
+        Self.sharedItems.first { $0.id == id }
     }
 }

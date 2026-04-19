@@ -18,6 +18,7 @@ final class MockAnalyticsRepository: AnalyticsRepository {
     private let dailyClosingRepository: DailyClosingRepositoryProtocol
     private let timeRecordRepository: TimeRecordRepository
     private let costCategorySettingsRepository: CostCategorySettingsRepository
+    private let vendorRepository: VendorRepository
 
     init(
         salesRepository: SalesRepository = MockSalesRepository(),
@@ -25,7 +26,8 @@ final class MockAnalyticsRepository: AnalyticsRepository {
         cashTransactionRepository: CashTransactionRepository = MockCashTransactionRepository(),
         dailyClosingRepository: DailyClosingRepositoryProtocol = MockDailyClosingRepository(),
         timeRecordRepository: TimeRecordRepository = UserDefaultsTimeRecordRepository(),
-        costCategorySettingsRepository: CostCategorySettingsRepository = UserDefaultsCostCategorySettingsRepository()
+        costCategorySettingsRepository: CostCategorySettingsRepository = UserDefaultsCostCategorySettingsRepository(),
+        vendorRepository: VendorRepository = MockVendorRepository()
     ) {
         self.salesRepository = salesRepository
         self.expenseRepository = expenseRepository
@@ -33,6 +35,7 @@ final class MockAnalyticsRepository: AnalyticsRepository {
         self.dailyClosingRepository = dailyClosingRepository
         self.timeRecordRepository = timeRecordRepository
         self.costCategorySettingsRepository = costCategorySettingsRepository
+        self.vendorRepository = vendorRepository
     }
 
     func fetchMonthly(storeId: String, month: Date) async throws -> AnalyticsMonthlyReport {
@@ -274,7 +277,19 @@ final class MockAnalyticsRepository: AnalyticsRepository {
     private func sumByVendor(expenses: [Expense]) -> [String: Int] {
         var dict: [String: Int] = [:]
         for e in expenses {
-            let name = (e.vendorName?.isEmpty == false) ? e.vendorName! : "その他（未紐付け）"
+            let name: String
+            let rawName = e.vendorNameRaw?.trimmingCharacters(in: .whitespacesAndNewlines)
+
+            if let vendorId = e.vendorId, !vendorId.isEmpty,
+               let vendor = vendorRepository.findById(vendorId) {
+                name = vendor.name
+            } else if let rawName, !rawName.isEmpty {
+                name = rawName
+            } else if let vendorId = e.vendorId, !vendorId.isEmpty {
+                name = "取引先ID: \(vendorId)"
+            } else {
+                name = "その他（未紐付け）"
+            }
             dict[name, default: 0] += e.amount
         }
         return dict

@@ -123,7 +123,11 @@ private func loadOrderCategories() -> [SeatOrderCategory] {
     loadCodable(key: orderCategoriesStorageKey, fallback: defaultOrderCategories())
 }
 
+<<<<<<< HEAD
 func loadOrderMenu() -> [SeatMenuItem] {
+=======
+private func loadOrderMenu() -> [SeatMenuItem] {
+>>>>>>> origin/main
     loadCodable(key: orderMenuStorageKey, fallback: defaultOrderMenu())
 }
 
@@ -139,6 +143,13 @@ private func loadSeatStock() -> SeatStock {
     loadCodable(key: orderStockStorageKey, fallback: [:])
 }
 
+<<<<<<< HEAD
+=======
+private func saveSeatStock(_ stock: SeatStock) {
+    saveCodable(stock, key: orderStockStorageKey)
+}
+
+>>>>>>> origin/main
 private func inferredOptions(for item: SeatMenuItem) -> [String]? {
     if item.options?.isEmpty == false {
         return item.options
@@ -156,7 +167,10 @@ private func inferredOptions(for item: SeatMenuItem) -> [String]? {
 }
 
 func clearSeatOrderHistory(seatId: String) {
+<<<<<<< HEAD
     InventoryStorage.consumeReservations(forSeatId: seatId)
+=======
+>>>>>>> origin/main
     UserDefaults.standard.removeObject(forKey: orderHistoryStorageKey(seatId: seatId))
 }
 
@@ -172,10 +186,18 @@ func billingItemsForSeat(_ seat: Seat) -> [OrderItem] {
 
     for record in history {
         for line in record.lines {
+<<<<<<< HEAD
             let name = if let option = line.option, !option.isEmpty {
                 "\(line.name) (\(option))"
             } else {
                 line.name
+=======
+            let name: String
+            if let option = line.option, !option.isEmpty {
+                name = "\(line.name) (\(option))"
+            } else {
+                name = line.name
+>>>>>>> origin/main
             }
 
             let key = "\(line.itemId)#\(line.option ?? "")#\(line.price)"
@@ -204,9 +226,12 @@ final class SeatOrderViewModel: ObservableObject {
     @Published var categories: [SeatOrderCategory] = []
     @Published var menu: [SeatMenuItem] = []
     @Published var stock: SeatStock = [:]
+<<<<<<< HEAD
     @Published var inventoryItems: [InventoryItem] = []
     @Published var inventoryLinks: [InventoryItemLink] = []
     @Published var inventoryReservations: [InventoryReservation] = []
+=======
+>>>>>>> origin/main
     @Published var history: [SeatOrderRecord] = []
     @Published var cart: [SeatCartEntry] = []
     @Published var activeCategoryId: String = "all"
@@ -221,9 +246,12 @@ final class SeatOrderViewModel: ObservableObject {
         categories = loadOrderCategories()
         menu = loadOrderMenu()
         stock = loadSeatStock()
+<<<<<<< HEAD
         inventoryItems = InventoryStorage.loadIngredients()
         inventoryLinks = InventoryStorage.loadLinks()
         inventoryReservations = InventoryStorage.loadReservations()
+=======
+>>>>>>> origin/main
         history = loadSeatOrderHistory(seatId: seatId).sorted { $0.at > $1.at }
     }
 
@@ -242,14 +270,18 @@ final class SeatOrderViewModel: ObservableObject {
     }
 
     func availableStock(for item: SeatMenuItem) -> Int? {
+<<<<<<< HEAD
         if let linkedCapacity = linkedCapacityForMenu(itemId: item.id) {
             return max(linkedCapacity - quantityInCart(for: item.id), 0)
         }
 
+=======
+>>>>>>> origin/main
         guard let current = stock[item.id] else { return nil }
         return max(current - quantityInCart(for: item.id), 0)
     }
 
+<<<<<<< HEAD
     private func linkedCapacityForMenu(itemId: String) -> Int? {
         let links = inventoryLinks.filter {
             $0.menuItemId == itemId && $0.isActive && $0.quantityPerSale > 0
@@ -286,6 +318,8 @@ final class SeatOrderViewModel: ObservableObject {
         return required
     }
 
+=======
+>>>>>>> origin/main
     func isSoldOut(_ item: SeatMenuItem) -> Bool {
         if item.soldOut {
             return true
@@ -338,6 +372,7 @@ final class SeatOrderViewModel: ObservableObject {
         }
 
         let itemId = cart[index].itemId
+<<<<<<< HEAD
         if let menuItem = menu.first(where: { $0.id == itemId }),
            let remaining = availableStock(for: menuItem) {
             // availableStock は現在のカート数量を差し引いた値なので、編集中行の数量ぶんは戻して判定する。
@@ -346,6 +381,15 @@ final class SeatOrderViewModel: ObservableObject {
                 showToast("在庫数を超えています")
                 return
             }
+=======
+        let otherQty = cart
+            .filter { $0.itemId == itemId && $0.id != entryId }
+            .reduce(0) { $0 + $1.quantity }
+
+        if let currentStock = stock[itemId], quantity + otherQty > currentStock {
+            showToast("在庫数を超えています")
+            return
+>>>>>>> origin/main
         }
 
         cart[index].quantity = quantity
@@ -382,10 +426,21 @@ final class SeatOrderViewModel: ObservableObject {
         history = nextHistory
         saveSeatOrderHistory(nextHistory, seatId: seatId)
 
+<<<<<<< HEAD
         let requiredByInventoryId = requiredInventoryQuantities(from: cart)
         InventoryStorage.reserveForSeat(seatId: seatId, requiredByInventoryId: requiredByInventoryId)
         inventoryItems = InventoryStorage.loadIngredients()
         inventoryReservations = InventoryStorage.loadReservations()
+=======
+        var nextStock = stock
+        for entry in cart {
+            if let current = nextStock[entry.itemId] {
+                nextStock[entry.itemId] = max(current - entry.quantity, 0)
+            }
+        }
+        stock = nextStock
+        saveSeatStock(nextStock)
+>>>>>>> origin/main
 
         cart.removeAll()
         showToast("注文を登録しました")
