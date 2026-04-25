@@ -4,13 +4,57 @@ import SwiftUI
 protocol MonthlyReportRepository {
     func fetchMonthlySummary(storeId: String, month: Date) async throws -> MonthlySummary
     func fetchMonthlyDaily(storeId: String, month: Date) async throws -> [MonthlyDaily]
+
+    func fetchAccountMappings(storeId: String) -> [AccountMapping]
+    func saveAccountMappings(storeId: String, mappings: [AccountMapping])
+
+    func generateJournals(
+        storeId: String,
+        from: Date,
+        to: Date,
+        createdByUserId: String
+    ) throws -> JournalGenerationResult
+
+    func fetchJournals(
+        storeId: String,
+        from: Date,
+        to: Date,
+        status: JournalStatus?
+    ) throws -> [JournalEntry]
+
+    func exportJournalsCSV(
+        storeId: String,
+        from: Date,
+        to: Date
+    ) throws -> String
 }
 
 enum MonthlyReportRepositoryError: Error {
     case invalidMonth
+    case invalidDateRange
+    case accountMappingNotFound(type: AccountMappingType, key: String)
+    case accountCodeMissing(type: AccountMappingType, key: String, side: String)
+}
+
+extension MonthlyReportRepositoryError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .invalidMonth:
+            return "月の指定が不正です。"
+        case .invalidDateRange:
+            return "日付範囲が不正です。"
+        case let .accountMappingNotFound(type, key):
+            return "勘定科目マッピングが不足しています: \(type.rawValue) / \(key)"
+        case let .accountCodeMissing(type, key, side):
+            return "勘定科目コードが不足しています: \(type.rawValue) / \(key) (\(side))"
+        }
+    }
 }
 
 final class MockMonthlyReportRepository: MonthlyReportRepository {
+    private static var sharedMappingsByStore: [String: [AccountMapping]] = [:]
+    private static var sharedJournalsByStore: [String: [JournalEntry]] = [:]
+
     private let salesRepository: SalesRepository
     private let expenseRepository: ExpenseRepository
     private let cashTransactionRepository: CashTransactionRepository
@@ -29,11 +73,11 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
         self.cashTransactionRepository = cashTransactionRepository
         self.dailyClosingRepository = dailyClosingRepository
         self.storeName = storeName
+        bootstrapMappingsIfNeeded(for: "store_1")
     }
 
     func fetchMonthlySummary(storeId: String, month: Date) async throws -> MonthlySummary {
         let daily = try await fetchMonthlyDaily(storeId: storeId, month: month)
-
         let yearMonth = yearMonthString(for: month)
 
         let summary = MonthlySummary(
@@ -78,23 +122,23 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
         var mutable = summary
         mutable.expensesFood = expenses
             .filter { $0.category == .food }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
         mutable.expensesDrink = expenses
             .filter { $0.category == .drink }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
         mutable.expensesConsumable = expenses
             .filter { $0.category == .consumable }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
         mutable.expensesUtility = expenses
             .filter { $0.category == .utility }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
         mutable.expensesMisc = expenses
             .filter { $0.category == .misc }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
 
         let cash = cashTransactionRepository.fetchTransactions(
@@ -109,15 +153,15 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
 
         mutable.cashOutPurchaseTotal = cash
             .filter { $0.type == .out && $0.category == .purchase }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
         mutable.cashOutReimburseTotal = cash
             .filter { $0.type == .out && $0.category == .expenseReimburse }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
         mutable.cashOutDepositToBankTotal = cash
             .filter { $0.type == .out && $0.category == .depositToBank }
-            .map { $0.amount }
+            .map(\.amount)
             .reduce(0, +)
 
         return mutable
@@ -125,7 +169,7 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
 
     func fetchMonthlyDaily(storeId: String, month: Date) async throws -> [MonthlyDaily] {
         let monthRange = try monthRange(for: month)
-        let dates = daysInMonth(from: monthRange.start, to: monthRange.end)
+        let dates = daysInRange(from: monthRange.start, to: monthRange.end)
 
         let receipts = salesRepository.fetchReceipts(
             storeId: storeId,
@@ -227,13 +271,505 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
         return result
     }
 
-    // MARK: - Helpers
+    func fetchAccountMappings(storeId: String) -> [AccountMapping] {
+        bootstrapMappingsIfNeeded(for: storeId)
+        return (Self.sharedMappingsByStore[storeId] ?? []).sorted {
+            if $0.mappingType.rawValue == $1.mappingType.rawValue {
+                return $0.mappingKey < $1.mappingKey
+            }
+            return $0.mappingType.rawValue < $1.mappingType.rawValue
+        }
+    }
+
+    func saveAccountMappings(storeId: String, mappings: [AccountMapping]) {
+        bootstrapMappingsIfNeeded(for: storeId)
+
+        let now = Date()
+        var deduped: [String: AccountMapping] = [:]
+        for mapping in mappings {
+            var copy = mapping
+            copy.updatedAt = now
+            deduped["\(copy.mappingType.rawValue)::\(copy.mappingKey)"] = copy
+        }
+
+        Self.sharedMappingsByStore[storeId] = deduped.values.sorted {
+            if $0.mappingType.rawValue == $1.mappingType.rawValue {
+                return $0.mappingKey < $1.mappingKey
+            }
+            return $0.mappingType.rawValue < $1.mappingType.rawValue
+        }
+    }
+
+    func generateJournals(
+        storeId: String,
+        from: Date,
+        to: Date,
+        createdByUserId: String
+    ) throws -> JournalGenerationResult {
+        let fromDay = startOfDay(from)
+        let toDay = startOfDay(to)
+        guard fromDay <= toDay else {
+            throw MonthlyReportRepositoryError.invalidDateRange
+        }
+
+        bootstrapMappingsIfNeeded(for: storeId)
+
+        var all = Self.sharedJournalsByStore[storeId] ?? []
+        var generated = 0
+        var replaced = 0
+        var warnings: [String] = []
+
+        for day in daysInRange(from: fromDay, to: toDay) {
+            let build = try buildDailyJournalLines(storeId: storeId, businessDate: day)
+            warnings.append(contentsOf: build.warnings)
+
+            guard !build.lines.isEmpty else { continue }
+
+            let now = Date()
+            if let index = all.firstIndex(where: {
+                $0.storeId == storeId && startOfDay($0.businessDate) == day && $0.sourceType == .dailySummary
+            }) {
+                var entry = all[index]
+                entry.lines = build.lines.enumerated().map { index, line in
+                    var mutable = line
+                    mutable.lineNo = index + 1
+                    return mutable
+                }
+                entry.status = .draft
+                entry.updatedAt = now
+                all[index] = entry
+                replaced += 1
+            } else {
+                let entry = JournalEntry(
+                    id: UUID().uuidString,
+                    storeId: storeId,
+                    businessDate: day,
+                    sourceType: .dailySummary,
+                    status: .draft,
+                    createdByUserId: createdByUserId,
+                    createdAt: now,
+                    updatedAt: now,
+                    lines: build.lines.enumerated().map { index, line in
+                        var mutable = line
+                        mutable.lineNo = index + 1
+                        return mutable
+                    }
+                )
+                all.append(entry)
+                generated += 1
+            }
+        }
+
+        all.sort {
+            if $0.businessDate == $1.businessDate {
+                return $0.createdAt > $1.createdAt
+            }
+            return $0.businessDate > $1.businessDate
+        }
+        Self.sharedJournalsByStore[storeId] = all
+
+        let preview = try fetchJournals(storeId: storeId, from: fromDay, to: toDay, status: nil)
+        return JournalGenerationResult(
+            generatedEntries: generated,
+            replacedEntries: replaced,
+            warningMessages: warnings,
+            previewEntries: preview
+        )
+    }
+
+    func fetchJournals(
+        storeId: String,
+        from: Date,
+        to: Date,
+        status: JournalStatus?
+    ) throws -> [JournalEntry] {
+        let fromDay = startOfDay(from)
+        let toDay = startOfDay(to)
+        guard fromDay <= toDay else {
+            throw MonthlyReportRepositoryError.invalidDateRange
+        }
+
+        return (Self.sharedJournalsByStore[storeId] ?? [])
+            .filter {
+                let d = startOfDay($0.businessDate)
+                return d >= fromDay && d <= toDay
+            }
+            .filter {
+                if let status = status {
+                    return $0.status == status
+                }
+                return true
+            }
+            .sorted {
+                if $0.businessDate == $1.businessDate {
+                    return $0.createdAt > $1.createdAt
+                }
+                return $0.businessDate > $1.businessDate
+            }
+    }
+
+    func exportJournalsCSV(
+        storeId: String,
+        from: Date,
+        to: Date
+    ) throws -> String {
+        let entries = try fetchJournals(storeId: storeId, from: from, to: to, status: nil)
+            .sorted { $0.businessDate < $1.businessDate }
+
+        let header = [
+            "business_date",
+            "store_id",
+            "entry_id",
+            "line_no",
+            "debit_account_code",
+            "credit_account_code",
+            "amount",
+            "tax_code",
+            "memo"
+        ]
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+
+        var lines: [String] = [header.map(csvEscape).joined(separator: ",")]
+        for entry in entries {
+            for line in entry.lines.sorted(by: { $0.lineNo < $1.lineNo }) {
+                let row = [
+                    dateFormatter.string(from: entry.businessDate),
+                    entry.storeId,
+                    entry.id,
+                    "\(line.lineNo)",
+                    line.debitAccountCode,
+                    line.creditAccountCode,
+                    "\(line.amount)",
+                    line.taxCode ?? "",
+                    line.memo
+                ]
+                lines.append(row.map(csvEscape).joined(separator: ","))
+            }
+        }
+
+        if !entries.isEmpty {
+            var all = Self.sharedJournalsByStore[storeId] ?? []
+            let targetIds = Set(entries.map(\.id))
+            let now = Date()
+            for index in all.indices where targetIds.contains(all[index].id) {
+                all[index].status = .exported
+                all[index].updatedAt = now
+            }
+            Self.sharedJournalsByStore[storeId] = all
+        }
+
+        return lines.joined(separator: "\n")
+    }
+
+    // MARK: - Journal Builders
+
+    private func buildDailyJournalLines(
+        storeId: String,
+        businessDate: Date
+    ) throws -> (lines: [JournalLine], warnings: [String]) {
+        let receipts = salesRepository.fetchReceipts(
+            storeId: storeId,
+            from: businessDate,
+            to: businessDate,
+            statuses: [.posted, .refunded]
+        )
+        let receiptIdSet = Set(receipts.map(\.id))
+
+        let splits = salesRepository.fetchPaymentSplits(
+            storeId: storeId,
+            from: businessDate,
+            to: businessDate
+        ).filter { receiptIdSet.contains($0.receiptId) }
+
+        let approvedExpenses = expenseRepository.fetchExpenses(
+            storeId: storeId,
+            from: businessDate,
+            to: businessDate,
+            category: nil,
+            paymentMethod: nil,
+            reimbursed: nil,
+            status: .approved,
+            employeeId: nil
+        )
+
+        let journalizableCashCategories: Set<CashTransactionCategory> = [
+            .depositToBank, .changePrep, .changeReturn, .expenseReimburse
+        ]
+        let cashTransactions = cashTransactionRepository.fetchTransactions(
+            storeId: storeId,
+            from: businessDate,
+            to: businessDate,
+            type: nil,
+            category: nil,
+            minAmount: nil,
+            maxAmount: nil
+        ).filter { tx in
+            guard let category = tx.category else { return false }
+            return journalizableCashCategories.contains(category)
+        }
+
+        var warnings: [String] = []
+        var lines: [JournalLine] = []
+
+        let salesTotal = receipts.map(\.totalInclTax).reduce(0, +)
+        let paymentTotal = splits.map(\.amountInclTax).reduce(0, +)
+        if salesTotal != paymentTotal {
+            warnings.append(
+                "\(dayKey(businessDate)): 売上合計(\(salesTotal))と支払合計(\(paymentTotal))に差分があります。"
+            )
+        }
+
+        let revenueMapping = try requiredMapping(
+            storeId: storeId,
+            type: .salesRevenue,
+            key: "revenue"
+        )
+        let revenueCredit = try requiredAccountCode(
+            mapping: revenueMapping,
+            side: "credit",
+            value: revenueMapping.creditAccountCode
+        )
+
+        for method in PaymentMethod.allCases {
+            let amount = splits
+                .filter { $0.method == method }
+                .map(\.amountInclTax)
+                .reduce(0, +)
+            guard amount != 0 else { continue }
+
+            let paymentMapping = try requiredMapping(
+                storeId: storeId,
+                type: .salesPayment,
+                key: method.mappingKey
+            )
+            let paymentDebit = try requiredAccountCode(
+                mapping: paymentMapping,
+                side: "debit",
+                value: paymentMapping.debitAccountCode
+            )
+
+            appendTransferLine(
+                lines: &lines,
+                amount: amount,
+                debitAccountCode: paymentDebit,
+                creditAccountCode: revenueCredit,
+                taxCode: revenueMapping.taxCode ?? paymentMapping.taxCode,
+                memo: "売上 \(method.mappingKey)",
+                sourceRefType: "sales",
+                sourceRefKey: method.mappingKey
+            )
+        }
+
+        let expenseGroups = Dictionary(grouping: approvedExpenses) {
+            "\($0.category.mappingKey)::\($0.paymentMethod.mappingKey)"
+        }
+        for (groupKey, items) in expenseGroups {
+            let amount = items.map(\.amount).reduce(0, +)
+            guard amount != 0 else { continue }
+
+            guard let first = items.first else { continue }
+
+            let categoryMapping = try requiredMapping(
+                storeId: storeId,
+                type: .expenseCategory,
+                key: first.category.mappingKey
+            )
+            let paymentMapping = try requiredMapping(
+                storeId: storeId,
+                type: .expensePayment,
+                key: first.paymentMethod.mappingKey
+            )
+            let debit = try requiredAccountCode(
+                mapping: categoryMapping,
+                side: "debit",
+                value: categoryMapping.debitAccountCode
+            )
+            let credit = try requiredAccountCode(
+                mapping: paymentMapping,
+                side: "credit",
+                value: paymentMapping.creditAccountCode
+            )
+
+            appendTransferLine(
+                lines: &lines,
+                amount: amount,
+                debitAccountCode: debit,
+                creditAccountCode: credit,
+                taxCode: categoryMapping.taxCode ?? paymentMapping.taxCode,
+                memo: "経費 \(groupKey)",
+                sourceRefType: "expense",
+                sourceRefKey: groupKey
+            )
+        }
+
+        let cashGroups = Dictionary(grouping: cashTransactions) { $0.category }
+        for (categoryOpt, items) in cashGroups {
+            guard let category = categoryOpt else { continue }
+            let signedAmount = items.reduce(0) { partial, tx in
+                partial + tx.type.sign * tx.amount
+            }
+            guard signedAmount != 0 else { continue }
+
+            let mapping = try requiredMapping(
+                storeId: storeId,
+                type: .cashTxCategory,
+                key: category.mappingKey
+            )
+            let debit = try requiredAccountCode(
+                mapping: mapping,
+                side: "debit",
+                value: mapping.debitAccountCode
+            )
+            let credit = try requiredAccountCode(
+                mapping: mapping,
+                side: "credit",
+                value: mapping.creditAccountCode
+            )
+
+            appendTransferLine(
+                lines: &lines,
+                amount: signedAmount,
+                debitAccountCode: debit,
+                creditAccountCode: credit,
+                taxCode: mapping.taxCode,
+                memo: "資金移動 \(category.mappingKey)",
+                sourceRefType: "cash_tx",
+                sourceRefKey: category.mappingKey
+            )
+        }
+
+        return (lines, warnings)
+    }
+
+    private func appendTransferLine(
+        lines: inout [JournalLine],
+        amount: Int,
+        debitAccountCode: String,
+        creditAccountCode: String,
+        taxCode: String?,
+        memo: String,
+        sourceRefType: String?,
+        sourceRefKey: String?
+    ) {
+        guard amount != 0 else { return }
+
+        let normalizedAmount = abs(amount)
+        let debit = amount > 0 ? debitAccountCode : creditAccountCode
+        let credit = amount > 0 ? creditAccountCode : debitAccountCode
+
+        lines.append(
+            JournalLine(
+                id: UUID().uuidString,
+                lineNo: lines.count + 1,
+                debitAccountCode: debit,
+                creditAccountCode: credit,
+                amount: normalizedAmount,
+                taxCode: taxCode,
+                memo: memo,
+                sourceRefType: sourceRefType,
+                sourceRefKey: sourceRefKey
+            )
+        )
+    }
+
+    // MARK: - Mapping Helpers
+
+    private func requiredMapping(
+        storeId: String,
+        type: AccountMappingType,
+        key: String
+    ) throws -> AccountMapping {
+        bootstrapMappingsIfNeeded(for: storeId)
+        guard let mapping = (Self.sharedMappingsByStore[storeId] ?? []).first(where: {
+            $0.mappingType == type && $0.mappingKey == key && $0.isActive
+        }) else {
+            throw MonthlyReportRepositoryError.accountMappingNotFound(type: type, key: key)
+        }
+        return mapping
+    }
+
+    private func requiredAccountCode(
+        mapping: AccountMapping,
+        side: String,
+        value: String?
+    ) throws -> String {
+        guard let code = value?.trimmingCharacters(in: .whitespacesAndNewlines), !code.isEmpty else {
+            throw MonthlyReportRepositoryError.accountCodeMissing(
+                type: mapping.mappingType,
+                key: mapping.mappingKey,
+                side: side
+            )
+        }
+        return code
+    }
+
+    private func bootstrapMappingsIfNeeded(for storeId: String) {
+        guard Self.sharedMappingsByStore[storeId] == nil else { return }
+
+        let now = Date()
+        var mappings: [AccountMapping] = []
+
+        func add(
+            type: AccountMappingType,
+            key: String,
+            debit: String? = nil,
+            credit: String? = nil,
+            tax: String? = nil,
+            isActive: Bool = true
+        ) {
+            mappings.append(
+                AccountMapping(
+                    id: UUID().uuidString,
+                    storeId: storeId,
+                    mappingType: type,
+                    mappingKey: key,
+                    debitAccountCode: debit,
+                    creditAccountCode: credit,
+                    taxCode: tax,
+                    isActive: isActive,
+                    updatedAt: now
+                )
+            )
+        }
+
+        add(type: .salesPayment, key: "cash", debit: "1110")
+        add(type: .salesPayment, key: "card", debit: "1130")
+        add(type: .salesPayment, key: "qr", debit: "1140")
+        add(type: .salesPayment, key: "other", debit: "1190")
+        add(type: .salesRevenue, key: "revenue", credit: "4110")
+
+        add(type: .expenseCategory, key: "food", debit: "5210")
+        add(type: .expenseCategory, key: "drink", debit: "5220")
+        add(type: .expenseCategory, key: "consumable", debit: "5310")
+        add(type: .expenseCategory, key: "utility", debit: "5410")
+        add(type: .expenseCategory, key: "misc", debit: "5990")
+        add(type: .expenseCategory, key: "transportation", debit: "5710")
+        add(type: .expenseCategory, key: "equipment", debit: "5320")
+
+        add(type: .expensePayment, key: "cash", credit: "1110")
+        add(type: .expensePayment, key: "card", credit: "2110")
+        add(type: .expensePayment, key: "bank_transfer", credit: "2110")
+        add(type: .expensePayment, key: "employee_advance", credit: "2160")
+
+        add(type: .cashTxCategory, key: "deposit_to_bank", debit: "1120", credit: "1110")
+        add(type: .cashTxCategory, key: "change_prep", debit: "1110", credit: "1180")
+        add(type: .cashTxCategory, key: "change_return", debit: "1180", credit: "1110")
+        add(type: .cashTxCategory, key: "expense_reimburse", debit: "2160", credit: "1110")
+        add(type: .cashTxCategory, key: "purchase", debit: "5310", credit: "1110", isActive: false)
+
+        Self.sharedMappingsByStore[storeId] = mappings
+    }
+
+    // MARK: - Date / CSV Helpers
 
     private func yearMonthString(for date: Date) -> String {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM"
-        f.locale = Locale(identifier: "ja_JP")
-        return f.string(from: date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        formatter.locale = Locale(identifier: "ja_JP")
+        return formatter.string(from: date)
     }
 
     private func monthRange(for date: Date) throws -> (start: Date, end: Date) {
@@ -248,23 +784,28 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
         return (cal.startOfDay(for: start), cal.startOfDay(for: end))
     }
 
-    private func daysInMonth(from start: Date, to end: Date) -> [Date] {
+    private func daysInRange(from start: Date, to end: Date) -> [Date] {
         var dates: [Date] = []
-        var current = start
+        var current = startOfDay(start)
+        let endDay = startOfDay(end)
         let cal = Calendar.current
 
-        while current <= end {
+        while current <= endDay {
             dates.append(current)
             current = cal.date(byAdding: .day, value: 1, to: current) ?? current
         }
         return dates
     }
 
+    private func startOfDay(_ date: Date) -> Date {
+        Calendar.current.startOfDay(for: date)
+    }
+
     private func dayKey(_ date: Date) -> String {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd"
-        f.locale = Locale(identifier: "ja_JP")
-        return f.string(from: date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "ja_JP")
+        return formatter.string(from: date)
     }
 
     private func groupByDay<T>(_ items: [T], date: (T) -> Date) -> [String: [T]] {
@@ -274,6 +815,46 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
             dict[key, default: []].append(item)
         }
         return dict
+    }
+
+    private func csvEscape(_ value: String) -> String {
+        if value.contains(",") || value.contains("\"") || value.contains("\n") || value.contains("\r") {
+            let escaped = value.replacingOccurrences(of: "\"", with: "\"\"")
+            return "\"\(escaped)\""
+        }
+        return value
+    }
+}
+
+private extension PaymentMethod {
+    var mappingKey: String { rawValue }
+}
+
+private extension ExpenseCategory {
+    var mappingKey: String { rawValue }
+}
+
+private extension ExpensePaymentMethod {
+    var mappingKey: String {
+        switch self {
+        case .cash: return "cash"
+        case .card: return "card"
+        case .bankTransfer: return "bank_transfer"
+        case .employeeAdvance: return "employee_advance"
+        }
+    }
+}
+
+private extension CashTransactionCategory {
+    var mappingKey: String {
+        switch self {
+        case .changePrep: return "change_prep"
+        case .changeReturn: return "change_return"
+        case .purchase: return "purchase"
+        case .expenseReimburse: return "expense_reimburse"
+        case .depositToBank: return "deposit_to_bank"
+        case .other: return "other"
+        }
     }
 }
 
