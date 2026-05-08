@@ -21,7 +21,7 @@ struct LossInputView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                .onChange(of: mode) { _ in
+                .onChange(of: mode) { _, _ in
                     selectedId = options.first?.id
                 }
                 
@@ -38,7 +38,7 @@ struct LossInputView: View {
                     .keyboardType(.decimalPad)
                 
                 Button("保存", action: saveLoss)
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
             }
             
             Section("ロス一覧") {

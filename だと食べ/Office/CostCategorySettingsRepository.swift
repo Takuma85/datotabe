@@ -13,25 +13,19 @@ protocol CostCategorySettingsRepository {
 }
 
 final class UserDefaultsCostCategorySettingsRepository: CostCategorySettingsRepository {
-    private let defaults = UserDefaults.standard
-
     func loadSettings(storeId: String) -> [CostCategorySetting] {
         let key = storageKey(storeId: storeId)
-        if let data = defaults.data(forKey: key),
-           let decoded = try? JSONDecoder().decode([CostCategorySetting].self, from: data) {
-            return mergeDefaultsIfNeeded(decoded)
-        }
+        let decoded = AppJSONStore.load([CostCategorySetting].self, key: key, fallback: defaultSettings())
+        let merged = mergeDefaultsIfNeeded(decoded)
 
-        let seeded = defaultSettings()
-        saveSettings(storeId: storeId, settings: seeded)
-        return seeded
+        if merged != decoded {
+            saveSettings(storeId: storeId, settings: merged)
+        }
+        return merged
     }
 
     func saveSettings(storeId: String, settings: [CostCategorySetting]) {
-        let key = storageKey(storeId: storeId)
-        if let data = try? JSONEncoder().encode(settings) {
-            defaults.set(data, forKey: key)
-        }
+        AppJSONStore.save(settings, key: storageKey(storeId: storeId))
     }
 
     private func storageKey(storeId: String) -> String {

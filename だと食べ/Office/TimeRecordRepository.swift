@@ -112,6 +112,11 @@ final class UserDefaultsTimeRecordRepository: TimeRecordRepository {
 
     private let defaults = UserDefaults.standard
     private let prefix = "timeRecord_"   // timeRecord_<empId>_yyyy-MM-dd
+    private let changeLogRepository: ChangeLogRepository
+
+    init(changeLogRepository: ChangeLogRepository = UserDefaultsChangeLogRepository()) {
+        self.changeLogRepository = changeLogRepository
+    }
 
     private lazy var dateKeyFormatter: DateFormatter = {
         let f = DateFormatter()
@@ -121,7 +126,7 @@ final class UserDefaultsTimeRecordRepository: TimeRecordRepository {
     }()
 
     private func key(employeeId: Int, date: Date) -> String {
-        let day = Calendar.current.startOfDay(for: date)
+        let day = BusinessDate.startOfDay(date)
         let dateString = dateKeyFormatter.string(from: day)
         return "\(prefix)\(employeeId)_\(dateString)"
     }
@@ -168,17 +173,29 @@ final class UserDefaultsTimeRecordRepository: TimeRecordRepository {
 
     func save(_ record: TimeRecord) {
         let k = key(employeeId: record.employeeId, date: record.date)
-        do {
-            let data = try JSONEncoder().encode(record)
-            defaults.set(data, forKey: k)
-        } catch {
-            print("Failed to encode TimeRecord:", error)
-        }
+        AppJSONStore.save(record, key: k, defaults: defaults)
+        changeLogRepository.record(
+            storeId: record.storeId,
+            entityType: "time_record",
+            entityId: record.id.uuidString,
+            action: "save",
+            summary: "\(record.employeeId) \(record.status.rawValue)"
+        )
     }
 
     func delete(employeeId: Int, date: Date) {
+        let deleted = load(employeeId: employeeId, date: date)
         let k = key(employeeId: employeeId, date: date)
         defaults.removeObject(forKey: k)
+        if let deleted {
+            changeLogRepository.record(
+                storeId: deleted.storeId,
+                entityType: "time_record",
+                entityId: deleted.id.uuidString,
+                action: "delete",
+                summary: "\(deleted.employeeId)"
+            )
+        }
     }
 
     func loadAll() -> [TimeRecord] {

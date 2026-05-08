@@ -1,9 +1,11 @@
 import Foundation
 import SwiftUI
 
-private let orderCategoriesStorageKey = "seatorder.categories"
-private let orderMenuStorageKey = "seatorder.menu"
-private let orderStockStorageKey = "orderpage.stock"
+let orderCategoriesStorageKey = "seatorder.categories"
+let orderMenuStorageKey = "seatorder.menu"
+let orderStockStorageKey = "orderpage.stock"
+let orderInventoryLinksStorageKey = "order.inventory.links.v1"
+let orderInventoryReservationsStorageKey = "order.inventory.reservations.v1"
 
 private func orderHistoryStorageKey(seatId: String) -> String {
     "seatorder.history.\(seatId)"
@@ -60,6 +62,36 @@ struct SeatOrderRecord: Identifiable, Codable, Hashable {
 
 typealias SeatStock = [String: Int]
 
+struct InventoryItemLink: Identifiable, Codable, Hashable {
+    var id: String
+    var menuItemId: String
+    var inventoryItemId: UUID
+    var quantityPerMenu: Double
+    var isActive: Bool
+
+    init(
+        id: String? = nil,
+        menuItemId: String,
+        inventoryItemId: UUID,
+        quantityPerMenu: Double,
+        isActive: Bool = true
+    ) {
+        self.menuItemId = menuItemId
+        self.inventoryItemId = inventoryItemId
+        self.quantityPerMenu = quantityPerMenu
+        self.isActive = isActive
+        self.id = id ?? "\(menuItemId)#\(inventoryItemId.uuidString)"
+    }
+}
+
+struct InventoryReservation: Identifiable, Codable, Hashable {
+    var id: String
+    var seatId: String
+    var inventoryItemId: UUID
+    var quantity: Double
+    var updatedAt: Date
+}
+
 private func orderUUID() -> String {
     UUID().uuidString
 }
@@ -109,38 +141,103 @@ private func defaultOrderMenu() -> [SeatMenuItem] {
         + build(categoryId: "alcohol", names: ["ウイスキー"], basePrice: 500, options: whiskyOptions)
 }
 
-private func loadCodable<T: Decodable>(key: String, fallback: T) -> T {
-    guard let data = UserDefaults.standard.data(forKey: key) else { return fallback }
-    return (try? JSONDecoder().decode(T.self, from: data)) ?? fallback
-}
-
-private func saveCodable<T: Encodable>(_ value: T, key: String) {
-    guard let data = try? JSONEncoder().encode(value) else { return }
-    UserDefaults.standard.set(data, forKey: key)
-}
-
 private func loadOrderCategories() -> [SeatOrderCategory] {
-    loadCodable(key: orderCategoriesStorageKey, fallback: defaultOrderCategories())
+    AppJSONStore.load([SeatOrderCategory].self, key: orderCategoriesStorageKey, fallback: defaultOrderCategories())
 }
 
-private func loadOrderMenu() -> [SeatMenuItem] {
-    loadCodable(key: orderMenuStorageKey, fallback: defaultOrderMenu())
+func loadOrderMenu() -> [SeatMenuItem] {
+    AppJSONStore.load([SeatMenuItem].self, key: orderMenuStorageKey, fallback: defaultOrderMenu())
 }
 
 private func loadSeatOrderHistory(seatId: String) -> [SeatOrderRecord] {
-    loadCodable(key: orderHistoryStorageKey(seatId: seatId), fallback: [])
+    AppJSONStore.load([SeatOrderRecord].self, key: orderHistoryStorageKey(seatId: seatId), fallback: [])
 }
 
 private func saveSeatOrderHistory(_ history: [SeatOrderRecord], seatId: String) {
-    saveCodable(history, key: orderHistoryStorageKey(seatId: seatId))
+    AppJSONStore.save(history, key: orderHistoryStorageKey(seatId: seatId))
 }
 
 private func loadSeatStock() -> SeatStock {
-    loadCodable(key: orderStockStorageKey, fallback: [:])
+    AppJSONStore.load(SeatStock.self, key: orderStockStorageKey, fallback: [:])
 }
 
 private func saveSeatStock(_ stock: SeatStock) {
-    saveCodable(stock, key: orderStockStorageKey)
+    AppJSONStore.save(stock, key: orderStockStorageKey)
+}
+
+func loadInventoryItemLinks() -> [InventoryItemLink] {
+    AppJSONStore.load([InventoryItemLink].self, key: orderInventoryLinksStorageKey, fallback: [])
+}
+
+func saveInventoryItemLinks(_ links: [InventoryItemLink]) {
+    AppJSONStore.save(links, key: orderInventoryLinksStorageKey)
+}
+
+func loadInventoryReservations() -> [InventoryReservation] {
+    AppJSONStore.load([InventoryReservation].self, key: orderInventoryReservationsStorageKey, fallback: [])
+}
+
+func saveInventoryReservations(_ reservations: [InventoryReservation]) {
+    AppJSONStore.save(reservations, key: orderInventoryReservationsStorageKey)
+}
+
+private func reserveInventoryForOrderEntries(seatId: String, entries: [SeatCartEntry]) {
+    let links = loadInventoryItemLinks()
+        .filter { $0.isActive && $0.quantityPerMenu > 0 }
+    guard !links.isEmpty else { return }
+
+    let linksByMenu = Dictionary(grouping: links, by: \.menuItemId)
+    var reservations = loadInventoryReservations()
+    let now = Date()
+
+    for entry in entries {
+        guard let itemLinks = linksByMenu[entry.itemId], !itemLinks.isEmpty else { continue }
+        for link in itemLinks {
+            let reserveQuantity = clampNumber(Double(entry.quantity) * link.quantityPerMenu)
+            guard reserveQuantity > 0 else { continue }
+
+            let reservationId = "\(seatId)#\(link.inventoryItemId.uuidString)"
+            if let index = reservations.firstIndex(where: { $0.id == reservationId }) {
+                reservations[index].quantity = clampNumber(reservations[index].quantity + reserveQuantity)
+                reservations[index].updatedAt = now
+            } else {
+                reservations.append(
+                    InventoryReservation(
+                        id: reservationId,
+                        seatId: seatId,
+                        inventoryItemId: link.inventoryItemId,
+                        quantity: reserveQuantity,
+                        updatedAt: now
+                    )
+                )
+            }
+        }
+    }
+
+    reservations.removeAll { $0.quantity <= 0 }
+    saveInventoryReservations(reservations)
+}
+
+private func settleReservedInventoryForSeat(seatId: String) {
+    var reservations = loadInventoryReservations()
+    let targetReservations = reservations.filter { $0.seatId == seatId && $0.quantity > 0 }
+    guard !targetReservations.isEmpty else { return }
+
+    let consumedByItem = targetReservations.reduce(into: [UUID: Double]()) { dict, reservation in
+        dict[reservation.inventoryItemId, default: 0] += reservation.quantity
+    }
+
+    var ingredients = InventoryStorage.loadIngredients()
+    ingredients = ingredients.map { item in
+        guard let consumed = consumedByItem[item.id], consumed > 0 else { return item }
+        var updated = item
+        updated.onHand = clampNumber(max(updated.onHand - consumed, 0))
+        return updated
+    }
+    InventoryStorage.saveIngredients(ingredients)
+
+    reservations.removeAll { $0.seatId == seatId }
+    saveInventoryReservations(reservations)
 }
 
 private func inferredOptions(for item: SeatMenuItem) -> [String]? {
@@ -160,6 +257,7 @@ private func inferredOptions(for item: SeatMenuItem) -> [String]? {
 }
 
 func clearSeatOrderHistory(seatId: String) {
+    settleReservedInventoryForSeat(seatId: seatId)
     UserDefaults.standard.removeObject(forKey: orderHistoryStorageKey(seatId: seatId))
 }
 
@@ -208,6 +306,9 @@ final class SeatOrderViewModel: ObservableObject {
     @Published var categories: [SeatOrderCategory] = []
     @Published var menu: [SeatMenuItem] = []
     @Published var stock: SeatStock = [:]
+    @Published var inventoryIngredients: [InventoryItem] = []
+    @Published var inventoryLinks: [InventoryItemLink] = []
+    @Published var reservations: [InventoryReservation] = []
     @Published var history: [SeatOrderRecord] = []
     @Published var cart: [SeatCartEntry] = []
     @Published var activeCategoryId: String = "all"
@@ -222,6 +323,9 @@ final class SeatOrderViewModel: ObservableObject {
         categories = loadOrderCategories()
         menu = loadOrderMenu()
         stock = loadSeatStock()
+        inventoryIngredients = InventoryStorage.loadIngredients()
+        inventoryLinks = loadInventoryItemLinks()
+        reservations = loadInventoryReservations()
         history = loadSeatOrderHistory(seatId: seatId).sorted { $0.at > $1.at }
     }
 
@@ -240,6 +344,10 @@ final class SeatOrderViewModel: ObservableObject {
     }
 
     func availableStock(for item: SeatMenuItem) -> Int? {
+        if let linkedAvailable = linkedAvailableMenus(for: item) {
+            return max(linkedAvailable - quantityInCart(for: item.id), 0)
+        }
+
         guard let current = stock[item.id] else { return nil }
         return max(current - quantityInCart(for: item.id), 0)
     }
@@ -314,6 +422,7 @@ final class SeatOrderViewModel: ObservableObject {
 
     func submitOrder() {
         guard !cart.isEmpty else { return }
+        let submittedEntries = cart
 
         let lines = cart.map { entry in
             SeatOrderLine(
@@ -339,14 +448,9 @@ final class SeatOrderViewModel: ObservableObject {
         history = nextHistory
         saveSeatOrderHistory(nextHistory, seatId: seatId)
 
-        var nextStock = stock
-        for entry in cart {
-            if let current = nextStock[entry.itemId] {
-                nextStock[entry.itemId] = max(current - entry.quantity, 0)
-            }
-        }
-        stock = nextStock
-        saveSeatStock(nextStock)
+        reserveInventoryForOrderEntries(seatId: seatId, entries: submittedEntries)
+        reservations = loadInventoryReservations()
+        inventoryIngredients = InventoryStorage.loadIngredients()
 
         cart.removeAll()
         showToast("注文を登録しました")
@@ -354,6 +458,26 @@ final class SeatOrderViewModel: ObservableObject {
 
     var cartSubtotal: Int {
         cart.reduce(0) { $0 + $1.lineTotal }
+    }
+
+    private func linkedAvailableMenus(for item: SeatMenuItem) -> Int? {
+        let activeLinks = inventoryLinks
+            .filter { $0.menuItemId == item.id && $0.isActive && $0.quantityPerMenu > 0 }
+        guard !activeLinks.isEmpty else { return nil }
+
+        var menuCapacities: [Int] = []
+        for link in activeLinks {
+            guard let ingredient = inventoryIngredients.first(where: { $0.id == link.inventoryItemId }) else { continue }
+            let reserved = reservations
+                .filter { $0.inventoryItemId == link.inventoryItemId }
+                .reduce(0.0) { $0 + $1.quantity }
+            let availableQty = max(ingredient.onHand - reserved, 0)
+            let capacity = Int((availableQty / link.quantityPerMenu).rounded(.down))
+            menuCapacities.append(max(capacity, 0))
+        }
+
+        guard !menuCapacities.isEmpty else { return nil }
+        return menuCapacities.min() ?? 0
     }
 
     private func showToast(_ message: String) {
@@ -401,7 +525,7 @@ struct SeatOrderView: View {
                     Button {
                         viewModel.reload()
                     } label: {
-                        Label("再読込", systemImage: "arrow.clockwise")
+                        Text("再読込")
                     }
                 }
             }
@@ -430,7 +554,7 @@ struct SeatOrderView: View {
             .padding(.horizontal)
             .padding(.vertical, 10)
         }
-        .background(.thinMaterial)
+        .background(Color(uiColor: .systemGroupedBackground))
     }
 
     private var searchBar: some View {
@@ -470,7 +594,7 @@ struct SeatOrderView: View {
                                 }
 
                                 if soldOut {
-                                    Label("品切れ", systemImage: "exclamationmark.triangle.fill")
+                                    Text("品切れ")
                                         .font(.caption)
                                         .foregroundColor(.red)
                                 } else if let options = inferredOptions(for: item), !options.isEmpty {
@@ -488,8 +612,8 @@ struct SeatOrderView: View {
                                         .font(.caption)
                                         .foregroundColor(.red)
                                 } else {
-                                    Image(systemName: "plus.circle.fill")
-                                        .font(.title3)
+                                    Text("追加")
+                                        .font(.caption)
                                         .foregroundColor(.blue)
                                 }
 
@@ -533,8 +657,11 @@ struct SeatOrderView: View {
                                 Button {
                                     viewModel.updateCartQuantity(entryId: entry.id, quantity: entry.quantity - 1)
                                 } label: {
-                                    Image(systemName: "minus.circle")
+                                    Text("-")
+                                        .frame(width: 28)
                                 }
+                                .buttonStyle(.bordered)
+                                .controlSize(.small)
 
                                 Text("\(entry.quantity)")
                                     .frame(minWidth: 28)
@@ -542,8 +669,11 @@ struct SeatOrderView: View {
                                 Button {
                                     viewModel.updateCartQuantity(entryId: entry.id, quantity: entry.quantity + 1)
                                 } label: {
-                                    Image(systemName: "plus.circle")
+                                    Text("+")
+                                        .frame(width: 28)
                                 }
+                                .buttonStyle(.bordered)
+                                .controlSize(.small)
 
                                 Spacer()
 
@@ -621,12 +751,12 @@ struct SeatOrderView: View {
                 Button("注文を確定") {
                     viewModel.submitOrder()
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.bordered)
                 .disabled(viewModel.cart.isEmpty)
             }
         }
         .padding()
-        .background(.ultraThinMaterial)
+        .background(Color(uiColor: .secondarySystemGroupedBackground))
     }
 }
 

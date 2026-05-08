@@ -15,10 +15,21 @@ protocol VendorRepository {
 }
 
 final class MockVendorRepository: VendorRepository {
-    private var items: [Vendor]
+    private static let storageKey = "vendors.v1"
+    private static var sharedItems: [Vendor] = AppJSONStore.load(
+        [Vendor].self,
+        key: storageKey,
+        fallback: Vendor.sample()
+    )
 
-    init(seed: [Vendor] = Vendor.sample()) {
-        self.items = seed
+    private let changeLogRepository: ChangeLogRepository
+
+    init(seed: [Vendor]? = nil, changeLogRepository: ChangeLogRepository = UserDefaultsChangeLogRepository()) {
+        self.changeLogRepository = changeLogRepository
+        if let seed {
+            Self.sharedItems = seed
+            persist()
+        }
     }
 
     func fetchVendors(
@@ -27,7 +38,7 @@ final class MockVendorRepository: VendorRepository {
         category: VendorCategory?,
         isActive: Bool?
     ) -> [Vendor] {
-        var result = items.filter { $0.storeId == storeId }
+        var result = Self.sharedItems.filter { $0.storeId == storeId }
 
         if let search = search, !search.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             let q = search.lowercased()
@@ -46,19 +57,45 @@ final class MockVendorRepository: VendorRepository {
     }
 
     func findById(_ id: String) -> Vendor? {
-        items.first { $0.id == id }
+        Self.sharedItems.first { $0.id == id }
     }
 
     func save(vendor: Vendor) {
-        if let index = items.firstIndex(where: { $0.id == vendor.id }) {
-            items[index] = vendor
+        let action: String
+        if let index = Self.sharedItems.firstIndex(where: { $0.id == vendor.id }) {
+            Self.sharedItems[index] = vendor
+            action = "update"
         } else {
-            items.append(vendor)
+            Self.sharedItems.append(vendor)
+            action = "create"
         }
+        persist()
+        changeLogRepository.record(
+            storeId: vendor.storeId,
+            entityType: "vendor",
+            entityId: vendor.id,
+            action: action,
+            summary: vendor.name
+        )
     }
 
     func delete(id: String) {
-        items.removeAll { $0.id == id }
+        let deleted = Self.sharedItems.first { $0.id == id }
+        Self.sharedItems.removeAll { $0.id == id }
+        persist()
+        if let deleted {
+            changeLogRepository.record(
+                storeId: deleted.storeId,
+                entityType: "vendor",
+                entityId: deleted.id,
+                action: "delete",
+                summary: deleted.name
+            )
+        }
+    }
+
+    private func persist() {
+        AppJSONStore.save(Self.sharedItems, key: Self.storageKey)
     }
 }
 

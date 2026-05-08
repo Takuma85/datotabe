@@ -18,11 +18,20 @@ protocol ExpenseRepository {
 }
 
 final class MockExpenseRepository: ExpenseRepository {
-    private static var sharedItems: [Expense] = Expense.sample()
+    private static let storageKey = "expenses.v1"
+    private static var sharedItems: [Expense] = AppJSONStore.load(
+        [Expense].self,
+        key: storageKey,
+        fallback: Expense.sample()
+    )
 
-    init(seed: [Expense]? = nil) {
+    private let changeLogRepository: ChangeLogRepository
+
+    init(seed: [Expense]? = nil, changeLogRepository: ChangeLogRepository = UserDefaultsChangeLogRepository()) {
+        self.changeLogRepository = changeLogRepository
         if let seed {
             Self.sharedItems = seed
+            persist()
         }
     }
 
@@ -80,18 +89,44 @@ final class MockExpenseRepository: ExpenseRepository {
     }
 
     func save(expense: Expense) {
+        let action: String
         if let index = Self.sharedItems.firstIndex(where: { $0.id == expense.id }) {
             Self.sharedItems[index] = expense
+            action = "update"
         } else {
             Self.sharedItems.append(expense)
+            action = "create"
         }
+        persist()
+        changeLogRepository.record(
+            storeId: expense.storeId,
+            entityType: "expense",
+            entityId: expense.id,
+            action: action,
+            summary: "\(expense.category.rawValue) \(expense.amount)円"
+        )
     }
 
     func delete(id: String) {
+        let deleted = Self.sharedItems.first { $0.id == id }
         Self.sharedItems.removeAll { $0.id == id }
+        persist()
+        if let deleted {
+            changeLogRepository.record(
+                storeId: deleted.storeId,
+                entityType: "expense",
+                entityId: deleted.id,
+                action: "delete",
+                summary: "\(deleted.category.rawValue) \(deleted.amount)円"
+            )
+        }
     }
 
     func findById(_ id: String) -> Expense? {
         Self.sharedItems.first { $0.id == id }
+    }
+
+    private func persist() {
+        AppJSONStore.save(Self.sharedItems, key: Self.storageKey)
     }
 }

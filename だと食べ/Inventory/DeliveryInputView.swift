@@ -94,13 +94,10 @@ private struct DeliveryListSettingsView: View {
                         .pickerStyle(.menu)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Button {
+                        Button("カテゴリ追加") {
                             showingAddCategoryAlert = true
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.title3)
                         }
-                        .accessibilityLabel("カテゴリー追加")
+                        .font(.footnote)
                     }
                     Picker("単位", selection: $unit) {
                         ForEach(unitOptions, id: \.self) { option in
@@ -120,7 +117,7 @@ private struct DeliveryListSettingsView: View {
                     
                     HStack {
                         Button(editingId == nil ? "追加" : "更新", action: saveItem)
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(.bordered)
                         if editingId != nil {
                             Button("キャンセル編集", action: resetEditor)
                                 .buttonStyle(.bordered)

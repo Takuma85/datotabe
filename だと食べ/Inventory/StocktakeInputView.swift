@@ -49,7 +49,7 @@ struct StocktakeInputView: View {
                         Button("確定") {
                             commit(item: item)
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.bordered)
                         .controlSize(.small)
                     }
                     .padding(.vertical, 2)

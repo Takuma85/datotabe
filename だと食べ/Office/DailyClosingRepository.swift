@@ -12,20 +12,28 @@ protocol DailyClosingRepositoryProtocol {
 }
 
 final class MockDailyClosingRepository: DailyClosingRepositoryProtocol {
-    private static var storedClosings: [String: DailyClosing] = [:]
+    private static let storageKey = "dailyClosings.v1"
+    private static var storedClosings: [String: DailyClosing] = AppJSONStore.load(
+        [String: DailyClosing].self,
+        key: storageKey,
+        fallback: [:]
+    )
 
     private let salesRepository: SalesRepository
     private let cashTransactionRepository: CashTransactionRepository
     private let storeName: String
+    private let changeLogRepository: ChangeLogRepository
 
     init(
         salesRepository: SalesRepository = MockSalesRepository(),
         cashTransactionRepository: CashTransactionRepository = MockCashTransactionRepository(),
-        storeName: String = "だと食べ 本店"
+        storeName: String = "だと食べ 本店",
+        changeLogRepository: ChangeLogRepository = UserDefaultsChangeLogRepository()
     ) {
         self.salesRepository = salesRepository
         self.cashTransactionRepository = cashTransactionRepository
         self.storeName = storeName
+        self.changeLogRepository = changeLogRepository
     }
 
     func loadClosing(storeId: String, date: Date) -> DailyClosing? {
@@ -50,6 +58,7 @@ final class MockDailyClosingRepository: DailyClosingRepositoryProtocol {
                 saved.confirmedBy = nil
             }
             Self.storedClosings[closingId] = saved
+            persist()
             return saved
         }
 
@@ -80,6 +89,7 @@ final class MockDailyClosingRepository: DailyClosingRepositoryProtocol {
         }
 
         Self.storedClosings[closingId] = created
+        persist()
         return created
     }
 
@@ -127,6 +137,19 @@ final class MockDailyClosingRepository: DailyClosingRepositoryProtocol {
         )
 
         Self.storedClosings[closingId] = normalized
+        persist()
+        changeLogRepository.record(
+            storeId: storeId,
+            entityType: "daily_closing",
+            entityId: closingId,
+            action: "save",
+            summary: "\(normalized.status.rawValue) 差額 \(normalized.difference)円",
+            userId: normalized.confirmedBy ?? "system"
+        )
+    }
+
+    private func persist() {
+        AppJSONStore.save(Self.storedClosings, key: Self.storageKey)
     }
 
     // MARK: - 集計ヘルパー

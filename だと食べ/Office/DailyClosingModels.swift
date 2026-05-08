@@ -1,7 +1,7 @@
 import Foundation
 
 /// 現金カウントで扱う券種
-enum CashDenomination: Int, CaseIterable, Hashable, Identifiable {
+enum CashDenomination: Int, CaseIterable, Hashable, Identifiable, Codable {
     case bill10000 = 10_000
     case bill5000 = 5_000
     case bill2000 = 2_000
@@ -56,7 +56,7 @@ enum ClosingStatus: String, CaseIterable, Identifiable, Codable, Hashable {
 }
 
 /// レジ締め1日分の表示用モデル（まだDBとは分離しておく想定）
-struct DailyClosing: Identifiable {
+struct DailyClosing: Identifiable, Hashable, Codable {
     let id: String
     var storeId: String
     var storeName: String             // 店舗名（今回は文字列だけ持つ）

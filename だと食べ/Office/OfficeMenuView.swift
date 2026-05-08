@@ -13,6 +13,9 @@ struct OfficeMenuView: View {
                 NavigationLink("打刻一覧（店長）", destination: TimecardManagerView())
                 NavigationLink("原価計算", destination: CostCalcView())
                 NavigationLink("レジ締め", destination: CashClosingMenuView())
+                NavigationLink("仕訳マッピング", destination: AccountMappingSettingsView())
+                NavigationLink("仕訳生成", destination: JournalGenerateView())
+                NavigationLink("仕訳CSV", destination: JournalCSVExportView())
             }
         }
         .navigationTitle("事務")
