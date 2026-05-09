@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		93FA549076C04A84AA46DA8D /* FifthBatchUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69572BB651C544669A78F27B /* FifthBatchUtilityTests.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		A9CADD292E6BF43D00FA6153 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		A9CADD1B2E6BF43B00FA6153 /* だと食べ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "だと食べ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9CADD282E6BF43D00FA6153 /* だと食べTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "だと食べTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9CADD322E6BF43D00FA6153 /* だと食べUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "だと食べUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69572BB651C544669A78F27B /* FifthBatchUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthBatchUtilityTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -66,8 +71,17 @@
 			isa = PBXGroup;
 			children = (
 				A9CADD1D2E6BF43B00FA6153 /* だと食べ */,
+				6FCEF9D2EFEC4852A5AA2A2F /* だと食べTests */,
 				A9CADD1C2E6BF43B00FA6153 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		6FCEF9D2EFEC4852A5AA2A2F /* だと食べTests */ = {
+			isa = PBXGroup;
+			children = (
+				69572BB651C544669A78F27B /* FifthBatchUtilityTests.swift */,
+			);
+			path = "だと食べTests";
 			sourceTree = "<group>";
 		};
 		A9CADD1C2E6BF43B00FA6153 /* Products */ = {
@@ -225,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93FA549076C04A84AA46DA8D /* FifthBatchUtilityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +405,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.oyamada.------";
+				PRODUCT_MODULE_NAME = datotabe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -417,6 +433,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.oyamada.------";
+				PRODUCT_MODULE_NAME = datotabe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

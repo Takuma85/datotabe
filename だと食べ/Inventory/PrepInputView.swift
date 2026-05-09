@@ -66,7 +66,7 @@ private struct PrepListSettingsView: View {
     @Binding var items: [InventoryItem]
     @Environment(\.dismiss) private var dismiss
     
-    @State private var editingId: UUID?
+    @State private var editingId: String?
     @State private var name = ""
     @State private var selectedCategory = "未分類"
     @State private var unit = "食"
@@ -94,13 +94,10 @@ private struct PrepListSettingsView: View {
                         .pickerStyle(.menu)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Button {
+                        Button("カテゴリ追加") {
                             showingAddCategoryAlert = true
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.title3)
                         }
-                        .accessibilityLabel("カテゴリー追加")
+                        .font(.footnote)
                     }
                     Picker("単位", selection: $unit) {
                         ForEach(unitOptions, id: \.self) { option in
@@ -120,7 +117,7 @@ private struct PrepListSettingsView: View {
                     
                     HStack {
                         Button(editingId == nil ? "追加" : "更新", action: saveItem)
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(.bordered)
                         if editingId != nil {
                             Button("キャンセル編集", action: resetEditor)
                                 .buttonStyle(.bordered)
@@ -264,7 +261,7 @@ private struct PrepListSettingsView: View {
                 updated.category = normalizedCategory(selectedCategory)
                 updated.unit = unit
                 updated.currentStock = clampNumber(currentValue)
-                updated.reorderPoint = clampNumber(reorderValue)
+                updated.reorderPoint = Int(clampNumber(reorderValue).rounded())
                 return updated
             }
         } else {

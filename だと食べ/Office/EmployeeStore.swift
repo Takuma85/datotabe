@@ -61,23 +61,10 @@ final class EmployeeStore: ObservableObject {
     // MARK: - 永続化
 
     private func save() {
-        do {
-            let data = try JSONEncoder().encode(employees)
-            UserDefaults.standard.set(data, forKey: storageKey)
-        } catch {
-            print("Failed to save employees:", error)
-        }
+        AppJSONStore.save(employees, key: storageKey)
     }
 
     private func load() {
-        let defaults = UserDefaults.standard
-        guard let data = defaults.data(forKey: storageKey) else { return }
-
-        do {
-            employees = try JSONDecoder().decode([Employee].self, from: data)
-        } catch {
-            print("Failed to load employees:", error)
-        }
+        employees = AppJSONStore.load([Employee].self, key: storageKey, fallback: [])
     }
 }
-

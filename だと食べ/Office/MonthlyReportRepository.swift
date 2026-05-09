@@ -52,27 +52,40 @@ extension MonthlyReportRepositoryError: LocalizedError {
 }
 
 final class MockMonthlyReportRepository: MonthlyReportRepository {
-    private static var sharedMappingsByStore: [String: [AccountMapping]] = [:]
-    private static var sharedJournalsByStore: [String: [JournalEntry]] = [:]
+    private static let mappingsStorageKey = "accountMappingsByStore.v1"
+    private static let journalsStorageKey = "journalEntriesByStore.v1"
+    private static var sharedMappingsByStore: [String: [AccountMapping]] = AppJSONStore.load(
+        [String: [AccountMapping]].self,
+        key: mappingsStorageKey,
+        fallback: [:]
+    )
+    private static var sharedJournalsByStore: [String: [JournalEntry]] = AppJSONStore.load(
+        [String: [JournalEntry]].self,
+        key: journalsStorageKey,
+        fallback: [:]
+    )
 
     private let salesRepository: SalesRepository
     private let expenseRepository: ExpenseRepository
     private let cashTransactionRepository: CashTransactionRepository
     private let dailyClosingRepository: DailyClosingRepositoryProtocol
     private let storeName: String
+    private let changeLogRepository: ChangeLogRepository
 
     init(
         salesRepository: SalesRepository = MockSalesRepository(),
         expenseRepository: ExpenseRepository = MockExpenseRepository(),
         cashTransactionRepository: CashTransactionRepository = MockCashTransactionRepository(),
         dailyClosingRepository: DailyClosingRepositoryProtocol = MockDailyClosingRepository(),
-        storeName: String = "だと食べ 本店"
+        storeName: String = "だと食べ 本店",
+        changeLogRepository: ChangeLogRepository = UserDefaultsChangeLogRepository()
     ) {
         self.salesRepository = salesRepository
         self.expenseRepository = expenseRepository
         self.cashTransactionRepository = cashTransactionRepository
         self.dailyClosingRepository = dailyClosingRepository
         self.storeName = storeName
+        self.changeLogRepository = changeLogRepository
         bootstrapMappingsIfNeeded(for: "store_1")
     }
 
@@ -298,6 +311,14 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
             }
             return $0.mappingType.rawValue < $1.mappingType.rawValue
         }
+        persistMappings()
+        changeLogRepository.record(
+            storeId: storeId,
+            entityType: "account_mapping",
+            entityId: storeId,
+            action: "save",
+            summary: "\(deduped.count)件"
+        )
     }
 
     func generateJournals(
@@ -367,8 +388,18 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
             return $0.businessDate > $1.businessDate
         }
         Self.sharedJournalsByStore[storeId] = all
+        persistJournals()
 
         let preview = try fetchJournals(storeId: storeId, from: fromDay, to: toDay, status: nil)
+        if generated > 0 || replaced > 0 {
+            changeLogRepository.record(
+                storeId: storeId,
+                entityType: "journal_entry",
+                entityId: "\(dayKey(fromDay))...\(dayKey(toDay))",
+                action: "generate",
+                summary: "生成 \(generated)件 / 置換 \(replaced)件"
+            )
+        }
         return JournalGenerationResult(
             generatedEntries: generated,
             replacedEntries: replaced,
@@ -459,6 +490,14 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
                 all[index].updatedAt = now
             }
             Self.sharedJournalsByStore[storeId] = all
+            persistJournals()
+            changeLogRepository.record(
+                storeId: storeId,
+                entityType: "journal_entry",
+                entityId: "\(dayKey(from))...\(dayKey(to))",
+                action: "export_csv",
+                summary: "\(entries.count)件"
+            )
         }
 
         return lines.joined(separator: "\n")
@@ -761,6 +800,15 @@ final class MockMonthlyReportRepository: MonthlyReportRepository {
         add(type: .cashTxCategory, key: "purchase", debit: "5310", credit: "1110", isActive: false)
 
         Self.sharedMappingsByStore[storeId] = mappings
+        persistMappings()
+    }
+
+    private func persistMappings() {
+        AppJSONStore.save(Self.sharedMappingsByStore, key: Self.mappingsStorageKey)
+    }
+
+    private func persistJournals() {
+        AppJSONStore.save(Self.sharedJournalsByStore, key: Self.journalsStorageKey)
     }
 
     // MARK: - Date / CSV Helpers

@@ -15,15 +15,18 @@ final class ExpenseViewModel: ObservableObject {
     private let storeId: String
     private let repository: ExpenseRepository
     private let cashTransactionRepository: CashTransactionRepository
+    private let settingsRepository: AppSettingsRepository
 
     init(
         storeId: String = "store_1",
         repository: ExpenseRepository = MockExpenseRepository(),
-        cashTransactionRepository: CashTransactionRepository = MockCashTransactionRepository()
+        cashTransactionRepository: CashTransactionRepository = MockCashTransactionRepository(),
+        settingsRepository: AppSettingsRepository = UserDefaultsAppSettingsRepository()
     ) {
         self.storeId = storeId
         self.repository = repository
         self.cashTransactionRepository = cashTransactionRepository
+        self.settingsRepository = settingsRepository
 
         let today = Calendar.current.startOfDay(for: Date())
         self.toDate = today
@@ -47,6 +50,13 @@ final class ExpenseViewModel: ObservableObject {
 
     func save(expense: Expense) {
         var updated = expense
+        let taxSettings = settingsRepository.loadTaxSettings(storeId: storeId)
+        let taxResult = TaxCalculator.fromTaxIncluded(
+            totalInclTax: updated.amount,
+            rate: taxSettings.defaultRate.rate,
+            rounding: taxSettings.roundingRule
+        )
+        updated.taxAmount = taxResult.taxAmount
         updated.updatedAt = Date()
         updated = synchronizeCashFlowLink(for: updated)
         repository.save(expense: updated)

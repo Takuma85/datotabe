@@ -138,7 +138,7 @@ struct AccountingExportView: View {
     }
 
     @ViewBuilder
-    private func journalLineSection(_ lines: [JournalLine]) -> some View {
+    private func journalLineSection(_ lines: [AccountingJournalLine]) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("月次仕訳一覧 (\(lines.count) 件)")
                 .font(.headline)

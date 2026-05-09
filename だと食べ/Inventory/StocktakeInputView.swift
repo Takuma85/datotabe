@@ -5,7 +5,7 @@ struct StocktakeInputView: View {
     @Binding var preps: [InventoryItem]
     @State private var mode: InventoryMode = .ingredient
     @State private var searchText = ""
-    @State private var counts: [UUID: String] = [:]
+    @State private var counts: [String: String] = [:]
     
     private var list: [InventoryItem] {
         mode == .ingredient ? ingredients : preps
@@ -49,7 +49,7 @@ struct StocktakeInputView: View {
                         Button("確定") {
                             commit(item: item)
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.bordered)
                         .controlSize(.small)
                     }
                     .padding(.vertical, 2)
@@ -78,7 +78,7 @@ struct StocktakeInputView: View {
         }
     }
     
-    private func apply(itemId: UUID, value: Double) {
+    private func apply(itemId: String, value: Double) {
         if mode == .ingredient {
             ingredients = ingredients.map { current in
                 guard current.id == itemId else { return current }
