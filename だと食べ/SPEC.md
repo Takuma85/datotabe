@@ -459,3 +459,242 @@ LIMIT 10;
   - 例外: adminのみ許可 + change_logs必須（運用が必要なら）
 - 集計は必ず business_date 範囲で統一（カレンダー日で集計しない）
 - 「売上合計≠支払合計」は warnings で必ず返す（見落とし防止）
+
+---
+
+## 実装バッチ定義（Codex作業用）
+
+このセクションは、要件PDF群をどの実装バッチとして扱うかを固定するための作業メモ。以後、ユーザーが「第1バッチ」「第2バッチ」などと指定した場合はこの対応表を優先する。
+
+要件PDFの参照元:
+- Google Drive: https://drive.google.com/drive/folders/1DgEX8RTpyJtExC0MotoPW08eTy0Swahd
+- 各バッチの「参照資料」は上記Google Driveフォルダ内の `要件定義書/` を参照する。
+
+### 第1バッチ: 在庫管理
+参照資料:
+- `要件定義書/在庫管理機能 要件定義 v1（オーダー引当方式）まとめ.pdf`
+- 補助参照: `要件定義書/共通テーブルDDL.pdf`
+- 補助参照: `要件定義書/business_date 参照条件一覧（v1確定チートシート）.pdf`
+
+目的:
+- 後続の締め・会計処理を成立させるための在庫引当土台を作る。
+
+範囲:
+- 会計・在庫の不足モデルを追加する。
+- 注文商品と在庫品目のリンク設定を入れる。
+- 在庫引当 `reserved` を実装する。
+- 在庫画面に `on_hand` / `reserved` / `available` を出す。
+- 仮実装の「先頭在庫品目を減らす」処理を廃止する。
+
+主な変更対象:
+- `Shared/AppModels.swift`
+- `Shared/AppStore.swift`
+- `Inventory/InventoryStatusView.swift`
+- `Settings/MenuSettingView.swift`
+
+実装タスク:
+- `InventoryItemLink` を追加する。
+- `InventoryReservation` を追加する。
+- `InventoryItem` に `onHand`, `reservedQuantity`, `availableQuantity` を扱える形を追加する。
+- サンプル `inventoryItemLinks` と `inventoryReservations` を保持する。
+- 注文追加時にリンクされた在庫へ `reserved` を積む。
+- 会計完了時に `reserved` を減らして `onHand` を減らす。
+- 棚卸・納品・ロスとの整合を壊さないように整理する。
+- メニュー商品に対して在庫品目と数量を結び付ける簡易UIを追加する。
+- 在庫画面で理論在庫、引当、利用可能、直近トランザクション、引当状況を見えるようにする。
+
+完了条件:
+- 商品ごとに引当先在庫を設定できる。
+- 注文を追加すると `reserved` が増える。
+- 会計確定すると `reserved` が減り `onHand` が減る。
+- 在庫画面で `on_hand` / `reserved` / `available` が確認できる。
+- 先頭在庫品目を機械的に減らす仮ロジックがなくなる。
+
+### 第2バッチ: 日報 / レジ締め / 経費 / 入出金 / 承認
+参照資料:
+- `要件定義書/日報機能 要件定義 v1.pdf`
+- `要件定義書/レジ締め機能 要件定義 v1.pdf`
+- `要件定義書/経費・立替機能 要件定義 v1.pdf`
+- `要件定義書/入出金機能 要件定義 v1.pdf`
+- 補助参照: `要件定義書/日報（daily_reports）× 承認フロー／変更履歴（v1） 要件定義.pdf`
+- 補助参照: `要件定義書/レジ締め（cash_closings）× 承認フロー／変更履歴（v1） 要件定義.pdf`
+- 補助参照: `要件定義書/承認フロー／変更履歴ログ（v1）＋経費・立替（expense）連携要件定義.pdf`
+
+目的:
+- 1営業日の締めを成立させる。
+- 第1バッチで在庫引当の土台ができた前提で進める。
+
+範囲:
+- 日報に経費・労務・レジ締めを統合する。
+- レジ締めを要件準拠に近づける。
+- 経費と入出金をひも付ける。
+- 日報を正式な締め記録にする。
+
+主な変更対象:
+- `Shared/AppModels.swift`
+- `Shared/AppStore.swift`
+- `Office/DailyReportModels.swift`
+- `Office/DailyReportView.swift`
+- `Office/CashClosingView.swift`
+- `Office/ExpenseView.swift`
+- `Office/CashFlowView.swift`
+
+実装タスク:
+- `DailyReport` に `totalExpenses`, `totalLaborMinutes`, `dailyClosingId`, 必要なら `cashDifference` を追加する。
+- `CashClosing` に `previousCashBalance`, `cashSales`, `cashInTotal`, `cashOutTotal`, `difference`, `issueFlag`, `confirmedAt`, `confirmedBy` 相当を追加する。
+- `ExpenseRecord` に `paymentMethod`, `taxAmount`, `cashFlowId` または `cashTransactionId` 相当を追加する。
+- 日報生成時に経費合計と労働時間を集計する。
+- レジ締め生成時に前日繰越と入出金集計を反映する。
+- 経費登録時に必要に応じて入出金との関連付けを保持する。
+- 日報とレジ締めの紐付けを保持する。
+- 日報画面で売上、経費、労務、レジ締め状況を表示する。
+- レジ締め画面で理論現金の内訳、差額、課題フラグを表示する。
+- 経費画面 / 入出金画面で現金払い経費と入出金を追えるようにする。
+
+完了条件:
+- 日報に売上、経費、労務、締め状況が揃う。
+- レジ締めで `前日残高 + 当日現金売上 + 入金 - 出金` の理論値が見える。
+- 差額が自動計算される。
+- 経費のうち現金払いが入出金と結び付く。
+- 日報からその日の締めが完了しているか確認できる。
+
+### 第3バッチ: 仕訳出力 / account_mappings
+参照資料:
+- `要件定義書/2) 会計ソフト連携：仕訳出力 要件定義 v1（journal_entries : journal_lines）.pdf`
+- `要件定義書/1) account_mappings 初期テンプレ（v1ひな形）.pdf`
+- 補助参照: `要件定義書/1) 月次集計CSV 要件定義 v1.pdf`
+- 補助参照: 第2バッチで使う経費・立替、入出金、日報、レジ締め要件。
+
+目的:
+- 会計処理を実データ化する。
+- 第2バッチまでで日々の締めが成立している前提で進める。
+
+範囲:
+- 仕訳モデルを追加する。
+- 勘定科目マッピングを要件準拠に拡張する。
+- 日次まとめ仕訳を生成する。
+- 会計出力画面で仕訳プレビューと警告を出す。
+
+主な変更対象:
+- `Shared/AppModels.swift`
+- `Shared/AppStore.swift`
+- `Settings/AccountMappingSettingView.swift`
+- `Office/AccountingExportView.swift`
+
+実装タスク:
+- `JournalEntry` を追加する。
+- `JournalLine` を追加する。
+- `AccountMapping` を拡張し、`mappingType`, `mappingKey`, `taxCode`, `isActive` を扱う。
+- `journalEntries`, `journalLines` を保持する。
+- 日次まとめ仕訳生成関数を追加する。
+- 売上、経費、入出金を仕訳生成対象にする。
+- 売上は payment method ごとに借方、売上高を貸方へ集約する。
+- 経費は expense category ごとの借方、支払手段側を貸方へ集約する。
+- 入出金はカテゴリ別マッピングで振替仕訳化する。
+- 借貸一致チェックを追加する。
+- マッピング未設定警告を追加する。
+- `mappingType` + `mappingKey` を登録できるUIへ変更する。
+- 最低限 `sales_payment`, `sales_revenue`, `expense_category`, `cash_tx_category` を扱う。
+- 会計出力画面で実際に生成された仕訳を一覧表示する。
+- 未設定マッピングや不一致を警告表示する。
+- 出力ジョブ作成時に仕訳生成を先に走らせる。
+
+完了条件:
+- 指定営業日または対象月に対して仕訳が生成される。
+- 売上、経費、入出金が仕訳行に変換される。
+- 借方合計と貸方合計が一致する。
+- マッピング未設定が画面で確認できる。
+- 会計出力画面がダミー履歴ではなく、実仕訳ベースになる。
+
+### 第4バッチ: 月次CSV / 打刻 / 分析
+参照資料:
+- `要件定義書/1) 月次集計CSV 要件定義 v1.pdf`
+- `要件定義書/打刻機能 要件整理（v1）.pdf`
+- `要件定義書/分析（Analytics）要件定義 v1：おすすめ確定案.pdf`
+- `要件定義書/分析（Analytics）日次API 要件定義 v1.pdf`
+
+目的:
+- 運用に耐える周辺機能を固める。
+- 会計出力を完成に近づけつつ、勤怠と分析を業務で使える形に寄せる。
+
+範囲:
+- 会計CSV出力を実装する。
+- 打刻の管理者運用を実装する。
+- 分析KPIを要件準拠へ拡張する。
+- 警告と監査性を強化する。
+
+主な変更対象:
+- `Shared/AppModels.swift`
+- `Shared/AppStore.swift`
+- `Office/AccountingExportView.swift`
+- `Office/TimecardView.swift`
+- `Office/AnalyticsView.swift`
+
+実装タスク:
+- `journal_lines` からCSV文字列を生成する。
+- 月次対象の仕訳一覧を表示する。
+- 出力前バリデーション結果を表示する。
+- 出力履歴に件数、警告数、対象月を持たせる。
+- 売上合計 vs 決済合計、借方合計 vs 貸方合計、未割当マッピングの検証を共通化する。
+- 打刻管理者向け一覧、日付フィルタ、従業員フィルタを追加する。
+- 打刻の承認 / 差戻し、不整合表示、詳細編集を追加する。
+- 打刻にエラー状態や承認者情報が扱えるよう補強する。
+- 分析画面へ `receiptCount`, `avgSpendPerReceipt`, `cogsTotal`, `grossProfit`, `grossMarginRatio`, `closingDifferenceTotal`, `laborMinutesTotal`, `salesPerLaborHour` を追加する。
+- 経費、レジ締め、勤怠、売上から分析KPIを集計する。
+
+完了条件:
+- 仕訳をCSV形式で出力内容として確認できる。
+- 会計出力前に不整合がわかる。
+- 店長が打刻一覧を確認、修正、承認できる。
+- 分析画面で売上だけでなく粗利、差額、人時売上まで見える。
+- 業務の異常値が警告として見える。
+
+### 第5バッチ: 共通DDL / business_date / 共通ユーティリティ / 設定系
+参照資料:
+- `要件定義書/共通テーブルDDL.pdf`
+- `要件定義書/business_date 参照条件一覧（v1確定チートシート）.pdf`
+- `要件定義書/共通ユーティリティ仕様（税計算・合計計算・一致チェック.pdf`
+- 補助参照: `要件定義書/取引先マスタ（vendors）要件定義 v1：おすすめ確定案.pdf`
+- 補助参照: `要件定義書/原価計算（Costing）要件定義 v1：おすすめ確定案.pdf`
+- 補助参照: `要件定義書/レシピ原価（Costing v2：試算MVP）要件定義.pdf`
+
+目的:
+- 仕上げと運用安定化。
+- これまで入れた機能を継続利用できる形に整える。
+
+範囲:
+- 設定値を各業務ロジックへ反映する。
+- 永続化を入れる。
+- テストを整備する。
+- リファクタリングして保守可能な構造にする。
+
+主な変更対象:
+- `Shared/AppStore.swift`
+- `Shared/AppModels.swift`
+- `Settings/TaxSettingView.swift`
+- `Settings/TimeBandSettingView.swift`
+- `Settings/VendorSettingView.swift`
+- `Settings/AccountMappingSettingView.swift`
+- 永続化用の新規ファイル群
+- テスト用の新規ファイル群
+
+実装タスク:
+- 税率、丸め、時間帯、取引先、勘定科目マッピングが各集計と出力に反映されるようにする。
+- 日報の時間帯別集計は `timeBands` を使う。
+- 会計出力は `accountMappings` を使う。
+- インメモリ初期化依存を減らす。
+- 最低限 JSON保存/読込または SwiftData などで継続保存する。
+- 店舗データ、設定、履歴、締め、仕訳が再起動後も残るようにする。
+- 在庫引当、日報集計、レジ締め計算、仕訳生成、CSV出力、勤怠計算の単体テストを追加する。
+- `AppStore` の肥大化を分割する。
+- 分割例: `InventoryService`, `ClosingService`, `AccountingService`, `AnalyticsService`
+- UIから直接計算ロジックを持たせない。
+- 主要更新に変更履歴を追加する。
+- 承認操作や差戻し理由を追えるようにする。
+
+完了条件:
+- 再起動後もデータが残る。
+- 設定変更が実際の集計や出力に反映される。
+- 重要ロジックに自動テストがある。
+- `AppStore` だけに依存しない構造になる。
+- 業務データの監査性が上がる。

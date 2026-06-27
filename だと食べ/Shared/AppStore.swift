@@ -63,7 +63,7 @@ final class AppStore: ObservableObject {
         persistExportHistories()
     }
 
-    func journalLinesCSV(_ lines: [JournalLine]) -> String {
+    func journalLinesCSV(_ lines: [AccountingJournalLine]) -> String {
         let header = [
             "business_date",
             "store_id",
@@ -92,7 +92,7 @@ final class AppStore: ObservableObject {
         return rows.joined(separator: "\n")
     }
 
-    func buildJournalLines(storeId: String, month: Date) -> [JournalLine] {
+    func buildJournalLines(storeId: String, month: Date) -> [AccountingJournalLine] {
         guard let monthRange = BusinessDate.monthRange(containing: month) else { return [] }
 
         let receipts = salesRepository.fetchReceipts(
@@ -122,13 +122,13 @@ final class AppStore: ObservableObject {
             // 重複IDが混在していてもクラッシュさせず、後勝ちで扱う
             receiptsById[receipt.id] = receipt
         }
-        var lines: [JournalLine] = []
+        var lines: [AccountingJournalLine] = []
 
         for split in splits {
             guard let receipt = receiptsById[split.receiptId] else { continue }
             let debit = salesDebitAccount(for: split.method) ?? "未割当"
             lines.append(
-                JournalLine(
+                AccountingJournalLine(
                     id: UUID().uuidString,
                     storeId: storeId,
                     businessDate: receipt.businessDate,
@@ -145,7 +145,7 @@ final class AppStore: ObservableObject {
             let debit = expenseDebitAccount(for: expense.category) ?? "未割当"
             let credit = expenseCreditAccount(for: expense.paymentMethod) ?? "未割当"
             lines.append(
-                JournalLine(
+                AccountingJournalLine(
                     id: UUID().uuidString,
                     storeId: storeId,
                     businessDate: expense.date,
@@ -166,7 +166,7 @@ final class AppStore: ObservableObject {
         }
     }
 
-    func validateJournalLines(storeId: String, month: Date, lines: [JournalLine]) -> AccountingValidationSummary {
+    func validateJournalLines(storeId: String, month: Date, lines: [AccountingJournalLine]) -> AccountingValidationSummary {
         guard let monthRange = BusinessDate.monthRange(containing: month) else {
             return AccountingValidationSummary(
                 salesPaymentDifference: 0,

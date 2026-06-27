@@ -4,7 +4,7 @@ struct LossInputView: View {
     @Binding var ingredients: [InventoryItem]
     @Binding var preps: [InventoryItem]
     @State private var mode: InventoryMode = .ingredient
-    @State private var selectedId: UUID?
+    @State private var selectedId: String?
     @State private var quantityText = "1"
     @State private var logs: [LossLog] = []
     
@@ -21,12 +21,12 @@ struct LossInputView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                .onChange(of: mode) { _ in
+                .onChange(of: mode) { _, _ in
                     selectedId = options.first?.id
                 }
                 
                 Picker("名称", selection: Binding(
-                    get: { selectedId ?? options.first?.id ?? UUID() },
+                    get: { selectedId ?? options.first?.id ?? "" },
                     set: { selectedId = $0 }
                 )) {
                     ForEach(options) { item in
@@ -38,7 +38,7 @@ struct LossInputView: View {
                     .keyboardType(.decimalPad)
                 
                 Button("保存", action: saveLoss)
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
             }
             
             Section("ロス一覧") {

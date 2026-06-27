@@ -66,11 +66,11 @@ enum AccountMappingType: String, CaseIterable, Identifiable, Codable {
 
     var label: String {
         switch self {
-        case .salesPayment: return "売上: 支払方法 → 借方"
-        case .salesRevenue: return "売上: 売上高 → 貸方"
-        case .expenseCategory: return "経費: カテゴリ → 借方"
-        case .expensePayment: return "経費: 支払方法 → 貸方"
-        case .cashTxCategory: return "入出金: カテゴリ → 振替"
+        case .salesPayment: return "売上 支払方法（借方）"
+        case .salesRevenue: return "売上高（貸方）"
+        case .expenseCategory: return "経費カテゴリ（借方）"
+        case .expensePayment: return "経費 支払方法（貸方）"
+        case .cashTxCategory: return "入出金カテゴリ（振替）"
         }
     }
 }
@@ -95,6 +95,13 @@ enum JournalStatus: String, CaseIterable, Identifiable, Codable {
     case exported
 
     var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .draft: return "未出力"
+        case .exported: return "出力済み"
+        }
+    }
 }
 
 enum JournalSourceType: String, CaseIterable, Identifiable, Codable {

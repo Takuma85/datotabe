@@ -26,7 +26,7 @@ struct AccountingValidationSummary: Hashable, Codable {
     }
 }
 
-struct JournalLine: Identifiable, Hashable, Codable {
+struct AccountingJournalLine: Identifiable, Hashable, Codable {
     var id: String
     var storeId: String
     var businessDate: Date
@@ -39,7 +39,7 @@ struct JournalLine: Identifiable, Hashable, Codable {
 
 struct AccountingExportPreview: Hashable {
     var month: String
-    var lines: [JournalLine]
+    var lines: [AccountingJournalLine]
     var validation: AccountingValidationSummary
     var csv: String
 }

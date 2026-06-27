@@ -48,19 +48,22 @@ final class MockDailyReportRepository: DailyReportRepository {
     private let expenseRepository: ExpenseRepository
     private let dailyClosingRepository: DailyClosingRepositoryProtocol
     private let timeRecordRepository: TimeRecordRepository
+    private let settingsRepository: AppSettingsRepository
 
     init(
         storeId: String = "store_1",
         salesRepository: SalesRepository = MockSalesRepository(),
         expenseRepository: ExpenseRepository = MockExpenseRepository(),
         dailyClosingRepository: DailyClosingRepositoryProtocol = MockDailyClosingRepository(),
-        timeRecordRepository: TimeRecordRepository = UserDefaultsTimeRecordRepository()
+        timeRecordRepository: TimeRecordRepository = UserDefaultsTimeRecordRepository(),
+        settingsRepository: AppSettingsRepository = UserDefaultsAppSettingsRepository()
     ) {
         self.defaultStoreId = storeId
         self.salesRepository = salesRepository
         self.expenseRepository = expenseRepository
         self.dailyClosingRepository = dailyClosingRepository
         self.timeRecordRepository = timeRecordRepository
+        self.settingsRepository = settingsRepository
 
         seedInitialReports()
     }
@@ -113,11 +116,10 @@ final class MockDailyReportRepository: DailyReportRepository {
         storeId: String,
         date: Date
     ) async throws -> DailyReport {
-        let cal = Calendar.current
-        let day = cal.startOfDay(for: date)
+        let day = BusinessDate.startOfDay(date)
 
         if let index = reports.firstIndex(where: { r in
-            r.storeId == storeId && cal.isDate(r.date, inSameDayAs: day)
+            r.storeId == storeId && Calendar.current.isDate(r.date, inSameDayAs: day)
         }) {
             let base = reports[index]
             let refreshed = buildDailyReport(
@@ -288,7 +290,9 @@ final class MockDailyReportRepository: DailyReportRepository {
         notes: String?,
         issueNotes: String?
     ) -> DailyReport {
-        let day = Calendar.current.startOfDay(for: date)
+        let policy = settingsRepository.loadBusinessDatePolicy(storeId: storeId)
+        let day = BusinessDate.businessDate(for: date, policy: policy)
+        let timeBands = settingsRepository.loadTimeBands(storeId: storeId)
 
         let receipts = salesRepository.fetchReceipts(
             storeId: storeId,
@@ -314,7 +318,7 @@ final class MockDailyReportRepository: DailyReportRepository {
 
         let allDay = DailyReportSegment(
             timeBandCode: "all_day",
-            timeBandName: "終日",
+            timeBandName: timeBands.first(where: { $0.code == "all_day" })?.name ?? "終日",
             totalSales: totalSales,
             cashSales: cashSales,
             cardSales: cardSales,
@@ -360,7 +364,7 @@ final class MockDailyReportRepository: DailyReportRepository {
             date: day,
             status: status,
             total: allDay,
-            segments: [allDay],
+            segments: buildSegments(timeBands: timeBands, allDay: allDay),
             totalExpenses: totalExpenses,
             totalLaborMinutes: totalLaborMinutes,
             dailyClosingId: closing?.id,
@@ -369,6 +373,52 @@ final class MockDailyReportRepository: DailyReportRepository {
             notes: notes,
             issueNotes: mergedIssueNotes
         )
+    }
+
+    private func buildSegments(timeBands: [TimeBand], allDay: DailyReportSegment) -> [DailyReportSegment] {
+        var segments: [DailyReportSegment] = []
+        var seenCodes: Set<String> = []
+
+        for band in timeBands.sorted(by: { $0.sortOrder < $1.sortOrder }) {
+            guard !seenCodes.contains(band.code) else { continue }
+            seenCodes.insert(band.code)
+
+            if band.code == "all_day" {
+                let renamed = DailyReportSegment(
+                    timeBandCode: allDay.timeBandCode,
+                    timeBandName: band.name,
+                    totalSales: allDay.totalSales,
+                    cashSales: allDay.cashSales,
+                    cardSales: allDay.cardSales,
+                    qrSales: allDay.qrSales,
+                    otherSales: allDay.otherSales,
+                    guestCount: allDay.guestCount,
+                    tableCount: allDay.tableCount,
+                    averageSpend: allDay.averageSpend
+                )
+                segments.append(renamed)
+                continue
+            }
+
+            // SalesReceipt currently has businessDate only, so non-all-day bands are configured placeholders.
+            segments.append(DailyReportSegment(
+                timeBandCode: band.code,
+                timeBandName: band.name,
+                totalSales: 0,
+                cashSales: 0,
+                cardSales: 0,
+                qrSales: 0,
+                otherSales: 0,
+                guestCount: 0,
+                tableCount: 0,
+                averageSpend: 0
+            ))
+        }
+
+        if !segments.contains(where: { $0.timeBandCode == "all_day" }) {
+            segments.insert(allDay, at: 0)
+        }
+        return segments
     }
 
     private func mergeIssueNotes(base: String?, closing: DailyClosing?) -> String? {

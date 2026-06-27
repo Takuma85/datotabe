@@ -17,11 +17,20 @@ protocol CashTransactionRepository {
 }
 
 final class MockCashTransactionRepository: CashTransactionRepository {
-    private static var sharedItems: [CashTransaction] = CashTransaction.sample()
+    private static let storageKey = "cashTransactions.v1"
+    private static var sharedItems: [CashTransaction] = AppJSONStore.load(
+        [CashTransaction].self,
+        key: storageKey,
+        fallback: CashTransaction.sample()
+    )
 
-    init(seed: [CashTransaction]? = nil) {
+    private let changeLogRepository: ChangeLogRepository
+
+    init(seed: [CashTransaction]? = nil, changeLogRepository: ChangeLogRepository = UserDefaultsChangeLogRepository()) {
+        self.changeLogRepository = changeLogRepository
         if let seed {
             Self.sharedItems = seed
+            persist()
         }
     }
 
@@ -77,18 +86,44 @@ final class MockCashTransactionRepository: CashTransactionRepository {
     }
 
     func save(transaction: CashTransaction) {
+        let action: String
         if let index = Self.sharedItems.firstIndex(where: { $0.id == transaction.id }) {
             Self.sharedItems[index] = transaction
+            action = "update"
         } else {
             Self.sharedItems.append(transaction)
+            action = "create"
         }
+        persist()
+        changeLogRepository.record(
+            storeId: transaction.storeId,
+            entityType: "cash_transaction",
+            entityId: transaction.id,
+            action: action,
+            summary: "\(transaction.type.rawValue) \(transaction.amount)円"
+        )
     }
 
     func delete(id: String) {
+        let deleted = Self.sharedItems.first { $0.id == id }
         Self.sharedItems.removeAll { $0.id == id }
+        persist()
+        if let deleted {
+            changeLogRepository.record(
+                storeId: deleted.storeId,
+                entityType: "cash_transaction",
+                entityId: deleted.id,
+                action: "delete",
+                summary: "\(deleted.type.rawValue) \(deleted.amount)円"
+            )
+        }
     }
 
     func findById(_ id: String) -> CashTransaction? {
         Self.sharedItems.first { $0.id == id }
+    }
+
+    private func persist() {
+        AppJSONStore.save(Self.sharedItems, key: Self.storageKey)
     }
 }

@@ -23,7 +23,7 @@ struct MonthlySummaryCSVView: View {
                     Button {
                         Task { await generateCSV() }
                     } label: {
-                        Label("月次サマリCSVを生成", systemImage: "doc.badge.plus")
+                        Text("月次サマリCSVを生成")
                     }
                 }
             }
@@ -147,7 +147,7 @@ struct MonthlyDailyCSVView: View {
                     Button {
                         Task { await generateCSV() }
                     } label: {
-                        Label("月次日別CSVを生成", systemImage: "doc.badge.plus")
+                        Text("月次日別CSVを生成")
                     }
                 }
             }
@@ -258,7 +258,7 @@ struct AccountMappingSettingsView: View {
     var body: some View {
         Form {
             Section("店舗") {
-                Text("store_id: \(storeId)")
+                Text("店舗ID: \(storeId)")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
@@ -324,7 +324,7 @@ struct AccountMappingSettingsView: View {
                 Button {
                     save()
                 } label: {
-                    Label("マッピングを保存", systemImage: "tray.and.arrow.down")
+                    Text("マッピングを保存")
                 }
             }
         }
@@ -398,7 +398,7 @@ struct JournalGenerateView: View {
                     Button {
                         generate()
                     } label: {
-                        Label("日次仕訳を生成", systemImage: "arrow.triangle.2.circlepath")
+                        Text("日次仕訳を生成")
                     }
                 }
             }
@@ -412,8 +412,8 @@ struct JournalGenerateView: View {
 
             if let result = result {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("生成件数: \(result.generatedEntries)")
-                    Text("更新件数: \(result.replacedEntries)")
+                    Text("生成: \(result.generatedEntries)件")
+                    Text("上書き: \(result.replacedEntries)件")
                 }
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -442,7 +442,7 @@ struct JournalGenerateView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(dayFormatter.string(from: entry.businessDate))
                                 .fontWeight(.semibold)
-                            Text("lines: \(entry.lines.count) / status: \(entry.status.rawValue)")
+                            Text("明細行: \(entry.lines.count)件 / 状態: \(entry.status.label)")
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
                         }
@@ -495,7 +495,7 @@ struct JournalCSVExportView: View {
                     Button {
                         exportCSV()
                     } label: {
-                        Label("仕訳CSVを生成", systemImage: "doc.badge.plus")
+                        Text("仕訳CSVを生成")
                     }
                 }
             }

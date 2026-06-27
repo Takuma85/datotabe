@@ -8,7 +8,10 @@ struct OrderAlertView: View {
     var body: some View {
         List {
             Section {
-                Toggle("境界を含む（≤）", isOn: $useLessOrEqual)
+                Toggle("発注点を含める", isOn: $useLessOrEqual)
+                Text(useLessOrEqual ? "現在庫が発注点以下の品目を表示します。" : "現在庫が発注点未満の品目を表示します。")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
                 Button("アラート再計算", action: runReorderCheck)
             }
             Section("アラート") {

@@ -19,10 +19,15 @@ protocol SalesRepository {
 final class MockSalesRepository: SalesRepository {
     private var receipts: [SalesReceipt]
     private var splits: [PaymentSplit]
+    private let settingsRepository: AppSettingsRepository
 
-    init(seedReceipts: [SalesReceipt] = SalesReceipt.sample()) {
+    init(
+        seedReceipts: [SalesReceipt] = SalesReceipt.sample(),
+        settingsRepository: AppSettingsRepository = UserDefaultsAppSettingsRepository()
+    ) {
         self.receipts = seedReceipts
         self.splits = PaymentSplit.sample(receipts: seedReceipts)
+        self.settingsRepository = settingsRepository
     }
 
     func fetchReceipts(
@@ -44,6 +49,7 @@ final class MockSalesRepository: SalesRepository {
             .filter { receipt in
                 statuses.contains(receipt.status)
             }
+            .map(normalizeTax)
             .sorted { $0.businessDate > $1.businessDate }
     }
 
@@ -62,6 +68,20 @@ final class MockSalesRepository: SalesRepository {
                 let d = cal.startOfDay(for: split.businessDate)
                 return d >= fromDay && d <= toDay
             }
+    }
+
+    private func normalizeTax(_ receipt: SalesReceipt) -> SalesReceipt {
+        let taxSettings = settingsRepository.loadTaxSettings(storeId: receipt.storeId)
+        let result = TaxCalculator.fromTaxIncluded(
+            totalInclTax: receipt.totalInclTax,
+            rate: taxSettings.defaultRate.rate,
+            rounding: taxSettings.roundingRule
+        )
+
+        var normalized = receipt
+        normalized.subtotalExclTax = result.subtotalExclTax
+        normalized.taxTotal = result.taxAmount
+        return normalized
     }
 }
 

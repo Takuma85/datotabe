@@ -114,7 +114,7 @@ final class BillingViewModel: ObservableObject {
     }
 
     var isSplitMode: Bool {
-        !selectedItemIds.isEmpty
+        singleItemMode && !selectedItemIds.isEmpty
     }
 
     var targetRemaining: Int {
@@ -126,11 +126,16 @@ final class BillingViewModel: ObservableObject {
     }
 
     var isPartial: Bool {
-        currentInput > 0 && currentInput < targetRemaining
+        guard singleItemMode else { return false }
+        return currentInput > 0 && currentInput < targetRemaining
     }
 
     var canCommit: Bool {
-        currentInput > 0 && !(singleItemMode && selectedItemIds.isEmpty && !items.isEmpty)
+        if !singleItemMode {
+            return targetRemaining > 0
+        }
+
+        return currentInput > 0 && !(singleItemMode && selectedItemIds.isEmpty && !items.isEmpty)
     }
 
     var subtypeCandidates: [String] {
@@ -154,6 +159,8 @@ final class BillingViewModel: ObservableObject {
     // MARK: - Actions
 
     func toggleSelection(for item: OrderItem) {
+        guard singleItemMode else { return }
+
         if singleItemMode {
             if selectedItemIds.contains(item.id) {
                 selectedItemIds.removeAll()
@@ -187,6 +194,14 @@ final class BillingViewModel: ObservableObject {
         inputValue = ""
     }
 
+    func setSingleItemMode(_ enabled: Bool) {
+        singleItemMode = enabled
+        selectedItemIds.removeAll()
+        if !enabled && currentInput < targetRemaining {
+            inputValue = ""
+        }
+    }
+
     func resetMethodSubtypeIfNeeded() {
         subtype = nil
         customSubtype = ""
@@ -206,7 +221,7 @@ final class BillingViewModel: ObservableObject {
     }
 
     func commitPayment() {
-        let input = currentInput
+        let input = paymentAmountForCommit()
         let target = targetRemaining
         guard canCommit, input > 0 else { return }
 
@@ -223,6 +238,14 @@ final class BillingViewModel: ObservableObject {
 
         let nextPayments = payments + [payment]
         apply(payments: nextPayments, lastCommittedPaymentID: payment.id, lastChange: change)
+    }
+
+    private func paymentAmountForCommit() -> Int {
+        if singleItemMode {
+            return currentInput
+        }
+
+        return max(currentInput, targetRemaining)
     }
 
     func cancelPayment(id: String) {
@@ -472,6 +495,7 @@ struct BillingView: View {
                             .foregroundColor(selected ? .blue : .gray)
                     }
                     .buttonStyle(.plain)
+                    .disabled(!viewModel.singleItemMode)
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(item.name)
@@ -487,6 +511,7 @@ struct BillingView: View {
                 }
                 .padding(10)
                 .background(selected ? Color.blue.opacity(0.08) : Color(uiColor: .secondarySystemBackground))
+                .opacity(viewModel.singleItemMode ? 1 : 0.72)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(selected ? Color.blue : Color.clear, lineWidth: 1)
@@ -547,10 +572,10 @@ struct BillingView: View {
             Divider()
 
             HStack {
-                Text("注文品目（分割したい品にチェック）")
+                Text(viewModel.singleItemMode ? "注文品目（分割したい品にチェック）" : "注文品目（全体会計）")
                     .font(.subheadline)
                 Spacer()
-                Text("選択中：\(viewModel.selectedItemIds.count)品")
+                Text(viewModel.singleItemMode ? "選択中：\(viewModel.selectedItemIds.count)品" : "全品対象")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -581,6 +606,10 @@ struct BillingView: View {
 
             if viewModel.singleItemMode && viewModel.selectedItemIds.isEmpty && !viewModel.items.isEmpty {
                 Text("※ 個別精算モード中です。品目を1つ選択してください。")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            } else if !viewModel.singleItemMode {
+                Text("全体会計です。未入力または不足額の場合も残額全額で会計完了します。")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -615,7 +644,10 @@ struct BillingView: View {
                 onClear: { viewModel.clearInput() }
             )
 
-            Toggle(isOn: $viewModel.singleItemMode) {
+            Toggle(isOn: Binding(
+                get: { viewModel.singleItemMode },
+                set: { viewModel.setSingleItemMode($0) }
+            )) {
                 Text("個別精算モード（1品ずつ）")
                     .font(.footnote)
             }
@@ -650,7 +682,7 @@ struct BillingView: View {
             Button {
                 viewModel.commitPayment()
             } label: {
-                Text(viewModel.isPartial ? "続けて入力" : "決済確定")
+                Text(commitButtonTitle)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
             }
@@ -661,6 +693,14 @@ struct BillingView: View {
         .frame(maxWidth: isCompact ? .infinity : 360, alignment: .topLeading)
         .background(Color(uiColor: .systemBackground))
         .cornerRadius(16)
+    }
+
+    private var commitButtonTitle: String {
+        if !viewModel.singleItemMode {
+            return "全体会計を確定"
+        }
+
+        return viewModel.isPartial ? "続けて入力" : "決済確定"
     }
 }
 
