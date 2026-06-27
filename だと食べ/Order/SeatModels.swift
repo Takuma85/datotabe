@@ -2,7 +2,7 @@ import Foundation
 
 enum SeatStatus: String, CaseIterable, Identifiable {
     case empty = "空席"
-    case reserved = "予約席"
+    case reserved = "予約中"
     case inUse = "利用中"
     case lastOrderPassed = "利用中（ラストオーダー以降）"
     case seatTimeExceeded = "利用中（席時間以降）"
@@ -12,9 +12,9 @@ enum SeatStatus: String, CaseIterable, Identifiable {
 
     var opensSeatSetting: Bool {
         switch self {
-        case .empty, .reserved:
+        case .empty:
             return true
-        case .inUse, .lastOrderPassed, .seatTimeExceeded, .bussing:
+        case .reserved, .inUse, .lastOrderPassed, .seatTimeExceeded, .bussing:
             return false
         }
     }
@@ -27,6 +27,65 @@ enum SeatStatus: String, CaseIterable, Identifiable {
             return false
         }
     }
+}
+
+enum ReservationStatus: String {
+    case active
+    case checkedIn
+    case cancelled
+}
+
+struct SeatReservation: Identifiable {
+    let id: UUID
+    var expectedArrivalAt: Date
+    var partySize: Int
+    var guestName: String
+    var contact: String
+    var memo: String
+    var status: ReservationStatus
+    var cancelledAt: Date?
+
+    init(
+        id: UUID = UUID(),
+        expectedArrivalAt: Date,
+        partySize: Int,
+        guestName: String = "",
+        contact: String = "",
+        memo: String = "",
+        status: ReservationStatus = .active,
+        cancelledAt: Date? = nil
+    ) {
+        self.id = id
+        self.expectedArrivalAt = expectedArrivalAt
+        self.partySize = partySize
+        self.guestName = guestName
+        self.contact = contact
+        self.memo = memo
+        self.status = status
+        self.cancelledAt = cancelledAt
+    }
+}
+
+struct SeatSession: Identifiable {
+    let id: UUID
+    var startedAt: Date
+    var partySize: Int
+    var reservationId: UUID?
+
+    init(id: UUID = UUID(), startedAt: Date, partySize: Int, reservationId: UUID? = nil) {
+        self.id = id
+        self.startedAt = startedAt
+        self.partySize = partySize
+        self.reservationId = reservationId
+    }
+}
+
+struct SeatStatusChangeLog: Identifiable {
+    let id = UUID()
+    var action: String
+    var fromStatus: SeatStatus
+    var toStatus: SeatStatus
+    var at: Date
 }
 
 struct Seat: Identifiable {
@@ -43,6 +102,9 @@ struct Seat: Identifiable {
     var lastOrderAt: Date?
     var seatLimitAt: Date?
     var hasPrintError: Bool
+    var reservation: SeatReservation?
+    var activeSession: SeatSession?
+    var statusChangeLogs: [SeatStatusChangeLog]
 
     init(
         id: Int,
@@ -57,7 +119,10 @@ struct Seat: Identifiable {
         startedAt: Date? = nil,
         lastOrderAt: Date? = nil,
         seatLimitAt: Date? = nil,
-        hasPrintError: Bool = false
+        hasPrintError: Bool = false,
+        reservation: SeatReservation? = nil,
+        activeSession: SeatSession? = nil,
+        statusChangeLogs: [SeatStatusChangeLog] = []
     ) {
         self.id = id
         self.status = status
@@ -72,6 +137,9 @@ struct Seat: Identifiable {
         self.lastOrderAt = lastOrderAt
         self.seatLimitAt = seatLimitAt
         self.hasPrintError = hasPrintError
+        self.reservation = reservation
+        self.activeSession = activeSession
+        self.statusChangeLogs = statusChangeLogs
     }
 
     var guestCount: Int {
